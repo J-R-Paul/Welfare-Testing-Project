@@ -1,0 +1,1080 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+    \setmainfont[]{Latin Modern Roman}
+  \setmathfont[]{Latin Modern Math}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{arxiv}
+\usepackage{orcidlink}
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Testing Welfare Improvability},
+  pdfkeywords={Empirical Welfare Maximisation, Algorithmic Deicison
+Making, Algorithm Discrimination},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\renewcommand{\today}{2024-11-23}
+\newcommand{\runninghead}{A Preprint }
+\title{Testing Welfare Improvability}
+\def\asep{\\\\\\ } % default: all authors on same column
+\author{\textbf{Joseph R. Paul}\\\\Heriot-Watt
+University\\\\\href{mailto:steve@curvenote.com}{steve@curvenote.com}}
+\date{2024-11-23}
+\begin{document}
+\maketitle
+\begin{abstract}
+Here is a placeholder for the abstract.
+\end{abstract}
+{\bfseries \emph Keywords}
+\def\sep{\textbullet\ }
+Empirical Welfare Maximisation \sep Algorithmic Deicison Making \sep 
+Algorithm Discrimination
+
+
+
+\section{Introduction}\label{introduction}
+
+Potential Names - Comparing Algorithmic Impacts with Doubly-Robust
+Estimation - Statistical Inference for Comparing Treatment Assignment
+Algorithms - Making Informed Choices: A Framework for Evaluating the
+Impact of Competing Algorithms - Statistical Inference for Comparing
+Treatment Assignment Algorithms
+
+\section{(old) Policy Evaluation}\label{old-policy-evaluation}
+
+The use of algorithmic decision-making systems is becoming increasingly
+pervasive across many areas of society. There is a growing critical need
+for robust methods to evaluate their performance and impacts on those
+they make decisions about. From healthcare and criminal justice to
+financial services and education, these systems are increasingly shaping
+outcomes that profoundly affect individual lives and social structures.
+While there is great potential for algorithms to enhance efficiency and
+fairness, their use raises significant concerns about their impacts on
+well-being. However, the potential of algorithms to enhance efficiency
+and fairness should instil optimism about their future impact.
+
+Algorithms have emerged as powerful and valuable tools for addressing
+complex economic decision problems, offering substantial benefits across
+various domains. Ludwig, Mullainathan, and Rambachan, in their study on
+``The Unreasonable Effectiveness of Algorithms,'' argue that they can
+also provide a ``free lunch in terms of public spending. For instance,
+in the criminal justice system, an algorithm applied to pretrial release
+decisions in New York City demonstrated the potential to reduce pretrial
+detentions by up to \(40\%\) Without increasing failure rates (REF). In
+healthcare, an algorithmic approach to diagnosing heart attacks could
+potentially reduce unnecessary stress tests and catheterisations,
+leading to significant cost savings, potentially billions in Medicare
+costs annually.
+
+Given the promise, we need robust methods to help us decide \emph{which}
+algorithm to use.
+
+The power of algorithms lies in their ability to extract signals from
+complex datasets, often outperforming human judgement in ranking and
+prediction tasks. This capability allows for more efficient allocation
+of resources and more accurate decision-making in various economic
+contexts. In education, Bergman et al.~(2023) found that an algorithm
+for college course placement increased enrollments in college-level
+classes without compromising pass rates while also reducing disparities
+across racial and ethnic groups. In workplace safety regulation, Johnson
+et al.~(2023) demonstrated that an algorithm could better predict which
+work sites will likely have future injuries, potentially preventing
+thousands of severe injuries and saving hundreds of millions of dollars
+in lost income.
+
+However, it is crucial to note that the effectiveness of algorithms has
+its challenges. These promising results should not lead to immediate
+large-scale implementation but encourage further research and
+development in algorithmic solutions to policy problems. The need for
+this research is urgent and of utmost importance. Key challenges remain,
+such as understanding how decision-makers will respond to algorithmic
+tools in practice (Albright REF), addressing potential data drift over
+time, ensuring algorithms generalise across different contexts, and
+accurately assessing the impact of policies. This paper aims to
+contribute to addressing that last problem.
+
+Recent years have witnessed substantial progress in developing
+frameworks for assessing the welfare implications of algorithmic
+decisions, mainly through the lens of treatment effects. This includes
+the empirical welfare maximisation literature, including the seminal
+work by \textbf{Athey2021} and \textbf{Kitagawa2018}, which established
+rigorous foundations for policy learning and demonstrating the
+possibility of deriving optimal treatment assignment policies that
+maximise welfare under various constraints. The purpose of empirical
+welfare maximisation is to leverage treatment heterogeneity to maximise
+welfare using an algorithmic decision policy at an almost \(1/\sqrt{n}\)
+convergence rate. Athey and Wager's work, rooted in the theory of
+semiparametric efficiency estimation \textbf{ernozhukov2020}, has opened
+new avenues for understanding and improving algorithmic decision-making
+processes. However, the existing literature on policy learning often
+focuses on asymptotic optimality within simplified policy classes,
+prioritizing theoretical guarantees over their practical applicability.
+While these contributions are invaluable, there remains a pressing need
+for more pragmatic approaches that can navigate the complexities of
+real-world algorithmic systems. This research aims to bridge the gap by
+proposing a novel framework for assessing welfare impacts of algorithmic
+treatment decisions and to help practitioners implement and find
+decision policies. There is concern around the finite-sample performance
+of some of this methods, with limited guarantees of optimally in finite
+samples.
+
+Our approach introduces a testing procedure for welfare improvability
+that evaluates a status quo algorithm or policy against a class of
+proposed algorithmic policies. This method offers several key advantages
+over existing methods proposed in the empirical welfare maximization
+literature. First, it allows for greater flexibility in the policy class
+selection, with almost no constraints placed on the set of allowed
+policies a priori. This can accommodate large and complex
+state-of-the-art algorithms such as deep neural networks or large
+ensembles that may outperform simpler, analytically tractable policy
+sets in practice. Second, it yields interpretable results, in terms of
+treatment effects, that can be readily understood by policymakers, legal
+experts, and other non-technical stakeholders. Third, it has potential
+applications in legal and ethical contexts, providing a framework for
+demonstrating the absence of discriminatory practices or the
+impossibility of Pareto improvements in welfare for specific subgroups
+such as men and women.
+
+Given sufficiently fast convergence of estimation of the nucciance
+parameters in the estimation of average treatment effects, we show that
+the proposed bootstrap procedure is consistent in its estimation of
+average welfare. This approach allows for the welfare ranking of
+policies
+(\textit{PARTIAL IDENTIFICATION, DISTRIBUTIONAL PREFERENCES, AND THE WELFARE RANKING OF POLICIES Maximilian Kasy}).
+The decision theoretic idea of optimising some population decision
+function using a sample analogue is known as the Empirical Risk
+Minimising principal in classification and statistical learning (Vapnik,
+1998).
+
+By adopting this methodology, we take a more nuanced view of algorithmic
+decision-making than traditional empirical welfare maximization
+approaches. Rather than focus solely on identifying the optimal policy
+within a restricted class, we provide a framework for evaluating and
+comparing complex algorithmic systems in terms of their welfare impacts.
+This shift in perspective opens up new possibilities for understanding
+and improving algorithmic decision-making in real-world contexts. As
+algorithmic systems become increasingly influential and critical in
+decision-making processes, the ability to rigorously assess their
+welfare impacts becomes paramount. This approach provides a practical
+tool for policymakers, legal professionals, researchers, and ethicists
+to evaluate the fairness and efficacy of algorithmic decisions.
+Moreover, it offers a means to detect and address potential biases or
+inefficiencies in existing systems, contributing to the development of
+more equitable and efficient algorithmic policies. UK Government's Data
+Ethics Framework which asks practitioners to perform a self-assessment
+of their transparency, fairness, and accountability {[}18{]}.
+
+Furthermore, it has been argued that using complex models are often
+preferable to simple models {[}Simplicity Creates Inequity: Implications
+for Fairness, Stereotypes, and Interpretability{]}. The authors show
+that for every simple prediction function, there exists a more complex
+function that is strictly more equitable and more efficient. (Can the
+statement be made that for every simple policy class, there exists a
+more favorable complex policy class. What does learnability have to say
+about comparisons across policy classes?).
+
+In the sections that follow, we first review the literature on policy
+evaluation, building on the seminal work on semi-parametric efficiency
+by \textbf{Chernozhukov2020}. We then propose our testing procedure and
+show that we efficiently and unbiasedly estimate differences in welfare
+of different algorithmic decision-making policies and show the
+convergence of our bootstrap estimation procedure. Wed Monte Carlo
+studies results, showing how the method is used in practice, and
+finally, we apply this method to the real-world setting of {[}TO BE
+FILLED IN LATER{]}.
+
+By offering a pragmatic yet rigorous approach to assessing the welfare
+impacts of algorithmic decisions, this research aims to contribute to
+the ongoing dialogue about the role and use of algorithms. The tools
+presented here will help develop a more transparent, accountable, and
+welfare-enhancing use of algorithmic decision policies.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+We assume that we have independent and identically distributed samples
+\(X_{i}, Y^*_{i}, Y_{i}, D_{i}, Z_{i}\), where
+\(Y^*_{i} \in \mathbb{R}\) is an outcome we try to predict,
+\(D_{i} \in \mathcal{D}\) is the observed treatment assignment,
+\(X_{i} \in \mathcal{X}\) are a subject's features, and \(Z_{i}\) is an
+(optional) instrument, and \(Y_{i}\in\mathbb{R}\) is interpreted as the
+utility resulting from the intervention. If \(D_{i}\) is conditionally
+exogenous, then \(Z_{i}=D_{i}\). It might also be the case that our
+target variable is equal to the measured utility \(Y^*_{i} = Y_{i}\).
+
+A decision-making algorithm is \(a \in \mathcal{A}\) is a mapping from a
+subject's features to a decision \(a: \mathcal{X} \to \mathcal{D}\).
+
+We can define the causal effect of an intervention in terms of potential
+outcomes, where \(U_{i}(d)\) correspond to the utility of subjects \(i\)
+under treatment \(d \in \mathcal{D}\).
+
+\subsection{Binary Decision}
+
+When our treatment \(D_{i}\) is binary, the utility under the algorithm
+\(a\) is measured against no-treatment \[
+V(a) = \mathbf{E}[Y_{i}(a(X_{i})) - Y_{i}(0)]
+\]
+
+In the policy learning literature, the policy is then usually evaluated
+as the regret of the algorithm relative to the best algorithm in class
+\(a \in \mathcal{A'}\) given by: \[
+R(a) = \max_{a'} \{  V(a') \in \mathcal{A'} \} - V(a).
+\] \(\mathcal{A'}\) is usually constrained to be a limited class of
+functions, such as linear decision rules or shallow decision trees. This
+is done to contain the VC dimension of the policy class to make
+asymptotic regret guarantees tractable. In this research, no such
+restrictions are placed on the class of allowed potential decision
+algorithms.
+
+As shown by Kitagawa and Tetenov (2018), if \(D_{i}\) is exogenous with
+known treatment propensities and a suitable class of policies, inverse
+propensity weighting can be used to derive a policy \(\hat{a}\) whose
+regret \(R(\hat{a})\) decays with \(\frac{1}{\sqrt{ n }}\), with \[
+\hat{a} = \arg\max \left\{  \frac{1}{n}\sum_{i=1}^n  \frac{1(\{ D_{i} = a(X_{i}) \})Y^*_{i}}{P[D_{i} = a(X_{i}) \mid X_{i}]} : a \in \mathcal{A'} \right\}.
+\]
+
+Athey and Wager (2020) extend this to cases where treatment propensities
+are unknown and may need to be identified from operational data.
+
+In the case of a continuous intervention, the utility of an
+infinitesimal intervention is given by \[
+V(a) =  \left[ \frac{d}{d \nu} \mathbf{E}[Y^*_{i}(D_{i} + \nu a(X_{i}))] \right]_{\nu=0},
+\] with regret defined similarly. An example of a continuous
+intervention would be price interventions.
+
+In the case of using observational data, as opposed to using data
+generated from an experiment, we need to make assumptions about the
+data-generating process that allow for identification and estimation of
+expected utility \(V(a)\).
+
+The empirical welfare maximisation literature relies on controlling the
+size of the policy class \(\mathcal{A}\), to make an estimation of a
+``best in class'' policy realistic. This work takes a more pragmatic
+view of the problem in that we are more interested in testing if we are
+able to produce a decision-making algorithm that results in higher
+welfare without potentially achieving a ``best in class'' algorithm or
+with specific regret guarantees. This allows for the use of more
+``powerful'' black-box machine learning algorithms to be used in these
+settings for which formal regret guarantees don't exist or are hard to
+prove.
+
+\section{Related Literature}\label{related-literature}
+
+This paper can be related to two distinct fields of study. The first is
+policy learning, which has gained interest from econometricians,
+statisticians, and computer scientists. In this line of literature,
+statistical methods have been developed to find the optimal policy,
+often from a pre-defined class of allowed policies. We can further
+divide these methods into model-based methods and direct-search methods.
+
+Belonging to model-based approaches, from the computer science
+literature, we have Q-learning (Qian and Murphy, 2011) and A-learning
+(Shi et al., 2018), which both estimate a conditional expectations
+function (or contrast function) and then determine the optimal policy
+from these predictions. A short coming of this approach is that it
+relies heavily on correct functional form assumptions.
+
+Among direct search methods, outcome weighting (Zhao et al., 2012)
+attempts to learn the optimal policy non-parametrically using an inverse
+probability weighting estimator (IPWE). \%\%What economic jargon is used
+here?\%\% However, it is well known that there is the potential for
+instability caused by extreme propensity scores and model specification.
+
+To increase stability, some methods use the augmented IPWE (Zhang et
+al., 2012a,b; Zhao et al., 2019; Athey and Wager, 2021; Pan and Zhao,
+2021), which has the double-robustness property. Athey and Wager's
+(2021)'s seminal method comes with minimal optimal regret guarantees
+under suitable regularity conditions of the estimators. These methods
+come with strong theoretical guarantees but still suffer extreme
+weights. This problem is made more server when we only have small sample
+sizes.
+
+Similar to Athey and Wager (2021), we propose using generalised double
+machine learning to estimate the causal effects of a decision function,
+using cross-fitting and classical estimators or flexible ML for the
+estimation of nuisance function.
+
+\begin{quote}
+Similar phenomena have been discussed in both policy learning and causal
+inference literature (e.g., Zhao et al., 2019; Wu et al., 2022). From
+(Matching-Based Policy Learning)
+\end{quote}
+
+The evaluation of treatment assignment rules has a long history in
+economics. Classic examples in economics include enrolment in government
+welfare programs (Dehejia, 2005), job training programs (Black et al.,
+2003; Frölich, 2008) and judge sentencing decisions (Bushway and Smith,
+2007). This has often taken the for of the minimax regret, an approach
+pioneered by Manski (2004).
+
+A short coming with the literature on optimal statistical decision rules
+is that rules are undetermined in complex setting such as including
+capisity or fairness constraints.
+
+This research is also motivated by fair machine learning / automated
+decision-making.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Treatment Effect Evaluation}\label{treatment-effect-evaluation}
+
+\section{Notation}\label{notation}
+
+Let \(W\) represent a measure of welfare, \(Y\) signify a given outcome,
+\(X\) denote a set of covariates and \(Z\) indicate a set of potential
+instruments, and a treatment variable \(D\). Formally, define \(Z\) such
+that \(Z := (W, Y, X, Z, D)\).
+
+\section{Average Treatment Effect
+Estimation}\label{average-treatment-effect-estimation}
+
+To define welfare for evaluating algorithm decisions, we introduce
+potential outcomes. In the binary treatment case, the realized outcome
+is given by \[
+W = D W(1) + (1-D)W(0).
+\] As is common analysis of statistical decision rules, we can evaluate
+the performance of an algorithm can be evaluated based on the
+distribution of outcomes induced by the algorithm.
+
+To start, we consider estimating the treatment effect in the partially
+linear regression model \[
+W = \theta_{0}D + m(X) + e
+\] \textgreater{} I don't think this is quite correct.
+
+Treatment assignment problems are related to the estimation of
+conditonaly average treatement effects. Assuming conditonal independence
+of treatment, we have \[
+W_{i} \mid T_{i}=t, X_{i}=x \sim F_{t}(\cdot\mid x).
+\]
+
+Under utilitarian welfare (with \(Y\) normalised to utilis),, the
+welfare of a treatment algorithm \(a\) is given by the below definition.
+
+In this paper, we propose using
+(\textbf{chernozhukovLocallyRobustSemiparametric2022?})'s method, which
+is a general GMM framework for estimating treatment effect-like
+parameters based on debiased machine learning. In the basic algorithm,
+the inference is based upon a method of moments estimator for some low
+dimensional parameter, such as the ATE, based upon the empirical
+analogue of the moment condition \[
+\mathbb{E}[\psi(Z; \theta_{0}, \eta)] =0
+\] \(\psi\) is the score, \(\theta_{0}\) denotes the true value of the
+parameter of interest and \(\eta\) being the nuisance paramters with
+true values \(\eta_{0}\). The expectation is taken over \(Z\).
+
+The score function has the important property that \[
+M(\theta, \eta) = \mathbb{E}[\psi(Z, \theta, \eta)]
+\] identifies \(\theta_{0}\) when \(\eta=\eta_{0}\)
+(\(M(\theta, \eta_{0}) =0 \iff \theta=\theta_{0}\)), as well as having
+the Neyman orthogonality condition \[
+\partial_{\eta}M(\theta_{0}, \eta) \bigg|_{\eta=\eta_{0}} =0,
+\] where \(\partial_{\eta}\) detnoes the pathwise or Gateaux derivative
+operator. This amounts to the scoring function being locally insensitive
+to perturbations around the true value of the nuisance parameters.
+
+Validity of the approach depends on defining an appropriate score
+function that satisfies the above condition, with some being proposed
+below.
+
+\subsection{Neyman Orthogoal scores for the linear regression
+model}\label{neyman-orthogoal-scores-for-the-linear-regression-model}
+
+A suitable score for the paritally linear regression model is given by
+\[
+\psi (Z; \theta, \eta) = \{ W - \ell(X) - \theta(D - m(X) \}(D - m(X))
+\] where \(\eta = (\ell, m)\), with true value
+\(\eta_{0} = (\ell_{0}, m_{0})\). Here \(\ell\) and \(m\) are
+square-integrable functions mapping the support of \(X\) to
+\(\mathbb{R}\), whose true values are the following conditional
+expecatation functions \[
+\ell_{0}(X) = \mathbb{E}(W \mid X), ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ m_{0}(X) = \mathbb{E}[D \mid X].
+\]
+
+\subsection{Interactive Regression
+Model}\label{interactive-regression-model}
+
+For estimation of the average treatment effect in the interactive
+reegression model, we can use the following score function \[
+\psi(Z; \theta, \eta) := (g(1, x) - g(0, x)) + H(D, X)(W-g(D, X)) - \theta,
+\] where \[
+H(D, X) := \frac{D}{m(X)} - \frac{1-D}{1-m(X)}.
+\] This similar to the well-known doubly-robust estimator. It is known
+as doubly robust due to having the property that either the propentisy
+score or the outcome needs to be properly modelled.
+
+Here \(g\) is a square-integratable function mapping the support of
+\((D, X)\) to \(\mathbb{R}\), and \(m\) maps the support of \(X\) to
+\((\epsilon, 1-\epsilon)\), where \(\epsilon \in (0, 0.5)\). The true
+values are given by \[
+g_{0}(X) = \mathbb{E}(W \mid D, X), ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ m_{0}(X) = \mathbb{E}[D \mid X].
+\]
+
+\subsection{Assumption Learners}\label{assumption-learners}
+
+To get consistent estimates, we need to assume sufficiently quality of
+the models that we use. For estimated nuciance components \(\eta\),
+sufficient condition being \[
+\sqrt[4]{n } \mid\mid \hat{\eta} - \eta_{0} \mid\mid \approx 0.
+\] Choice of the base estimators depends on the situation at hand. For
+example, believing the data to be sparce, we might choose to use LASSO
+with a dictionary of transformations on \(X\). How we choose learners is
+still an active area of research with not much said about choosing the
+theoretically best learner. That is why we advocate ensembles or what
+has been called ``super-learning''.
+
+The performance of the ensemble is theoretically no worse that the best
+performing model in used our base learners. We can therefore combine
+powerful machine learning estimators, which may be have good finite
+sample performance, with various non-parametric estimators (which are
+known to satisfy the conditions asymptotically).
+
+Under the following an appropriate score function, assumptions (X) on
+the convergence of the learners and the use of sample-splitting, the
+approach works for estimating average treatment effects.
+
+\section{The Double machine learning
+algorithm}\label{the-double-machine-learning-algorithm}
+
+Under the above assumpitons, assume we have a sample
+\(\{ Z_{i} \}_{i=1}^n\) modelled as i.i.d coipies of random variable
+\(Z\), hows law is determined by the probability measure \(P\). The DML
+algorithm dives unbiased estimates of the paramter \(\theta\).
+
+\textbf{DML Algorithm} Inputs: \(\{ Z_{i} \}_{i=1}^n\), the Neyman
+orthogonal score/moment function \(\psi (Z, \theta, \eta)\) that
+identifies the paramter of interest, and estimation methods
+\(\mathcal{A}\) for \(\eta\).
+
+Take a \(K-fold\) random partition \((I_{k})_{k=1}^K\) of observation
+indicies \(\{ 1, \dots, n \}\) such that each fold is approximiatly the
+same size For \(k \in \{  1, \dots, K \}\) do
+\(\hat{\eta}_{[k]} = \mathcal{A}((X_{i})_{i \not\in I_{k}})\) end do Let
+\(k(i) = \{ k: i \in I_{k} \}\)
+\(\hat{M}(\theta, \hat{\eta}) = \frac{1}{n}\sum_{i=1}^n \psi(Z_{i}, \theta, \hat{\eta}_{{k(i)}})\)
+(The moment equation estimator) \(\hat{\theta} =\) solution of
+\(\hat{M}(\hat{\theta}, \hat{\eta}) = 0\)
+
+The asymptotic variance is given by
+\[\hat{V} = \frac{1}{n} \sum_{{i=1}}^n [\hat{\varrho}(Z_{i})\hat{\varrho}(Z_{i})'] - \frac{1}{n} \sum_{i=1}^n[\hat{\varrho}(Z_{i})] \frac{1}{n} \sum_{i=1}^n[\hat{\varrho}(Z_{i})]'\]
+where
+\(\hat{\varrho}(Z_{i}) = - \hat{J}_{0}^{-1} \psi (Z_{i}, \hat{\theta}, \hat{\eta}_{[k(i)]})\)
+and
+\(\hat{J}_{0} = \partial_{0} \frac{1}{n} \sum_{i=1}^n \psi(Z_{i}, \hat{\theta}, \hat{\eta}_{[k(i)]})\).
+
+Chernozhukov et al (book) recommend using 4-5 for a medium sized
+data-set. For smaller data-sets, we may choose to do more splits.
+
+Under strong identification assumption, we identify the \(\theta\). That
+is we have \(M(\theta, \eta_{0}) = 0 \iff \theta=\theta_{0}\) and that
+\(J_{0}:= \partial _\theta \mathbb{E}[\psi(Z; \theta_{0}, \eta_{0})]\)
+has singular values that are bounded away from zero. This method also
+has the beneficial quality of being Neyman orthogonal.
+
+In most settings, our nuisance parameters will be a regression function
+\[
+\eta_{m} = \mathbb{E}[V_{m} \mid X_{m}], ~m \in \{ 1, \dots, M \}.
+\] Chernozhukov (Book) recommend the following method for choosing the
+parameter. Select \(J\) different poteintal ML or statistical estimators
+- For each \(j \in \{ 1, \dots, J \}\), compute cross-fitted MSPE \[
+\mathbb{E}_{n} [\hat{V}_{mj}^2]
+\] - Select model \(j\) which has the lowest MPSE - Use method
+\(\hat{j}_{m}\) as the learer of \(\eta_{m}\) in the generic DML
+algorithm.
+
+While note giving us direct individual treatment effects, we can use
+this on our way to building estimates of the utility of an algorithm.
+
+\section{From Average to Conditional Treatment
+Effects}\label{from-average-to-conditional-treatment-effects}
+
+We express the CATE as the conditional expectation of an unbiased signal
+\[
+\tau_{0}(X) = \mathbb{E}[Y(\eta_{0}) \mid X],
+\] where the unbasied signal takes the from \[
+Y(\eta) = H(\mu)(Y-g(D, Z)) + g(1, Z) - g(0, Z),
+\] with nuisance parameters \(\eta  :=(\mu, \eta)\) and \[
+H(\mu) := \frac{D}{\mu(Z)} - \frac{1-D}{1-\mu(Z)},
+\] and
+
+\[
+\mu_{0}(Z) := P(D=1 \mid Z), g_{0}(D, Z) := \mathbb{E}[Y \mid Z, D].
+\] \textgreater{} This is from chapter 14 CausalML Book. pg 378
+
+We can then form (I think) our individual score as \[
+\begin{aligned}
+Y_{i}(\hat{\eta}) &= Y_{i}(\hat{\eta}_{[k]}) \\
+&= H_{i}(Y_{i} - \hat{g}_{[k]}(D_{i}, Z_{i})) + \hat{g}_{[k]}(1, Z_{i}) - \hat{g}_{[k]}(0, Z_{i})
+\end{aligned}
+\] where
+\(H_{i}(\mu) := \frac{D}{\hat{\mu}_{[k]}(Z)} - \frac{1-D}{1-\hat{\mu}_{[k]}(Z)}\).
+
+\begin{quote}
+Where does this leave me. I knew that it should already be unbiased. And
+if it wasn't then It wouldn't work anyway. What I think is a bit of a
+disapointnment is that the asympototics are already worked out. But
+there is lots to say about asympototics
+\end{quote}
+
+\begin{quote}
+It is unlikely that the finite sample properties are tractable. Could
+the bootstrap thus prove to be better in finite settings.
+\end{quote}
+
+You are referred to \textbf{X} for a detailed treatment.
+
+A probabilistic decision algorithm \(a(X) \in [0,1]\) returns the
+probability of making a positive decision (e.g.~to treat or not to
+treat). As part of assessing the quality of an algorithm, we want to
+create inference on the value of algorithm \(a\).
+
+Given an algorithm \(a\), I define the value of the algorithm as the
+average value if we follow \(a\)'s decisions vs treating no one in our
+population: \[
+\begin{aligned}
+V(a) :&= \mathbb{E}[a(X) Y(1) + (1-a(X))Y(0)] - \mathbb{E}(Y(0)) \\
+&= \mathbb{E}[a(X)(Y(1) - Y(0))] \\
+&= \mathbb{E}[a(X)\tau_{0}(X)]
+\end{aligned}
+\]
+
+As we have shown, the CATE is identified by
+\(\mathbb{E}[Y(\eta_{0} \mid X)]\) (Theorem 5.2.1). This implies our
+value of our algorithm is given by \[
+V(a) := \mathbb{E}[a(X)\mathbb{E}[Y(\eta_{0} \mid X)]] = \mathbb{E}[a(X)Y(\eta_{0})].
+\] I will next present an algorithm for estimating this, and then show
+that this provides an biased estimate of the value of the algorithm.
+
+Theorem (10.4)
+
+We next show how our proposed bootstrap procedure can be used to
+efficiently compare the effect of different algorithmic policies.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Proposed Approach}\label{proposed-approach}
+
+\section{Outline of testing
+procedure}\label{outline-of-testing-procedure}
+
+We have access to an independent and identically distributed set of
+variables \(\{ (X_{i}, W_{i}, Y_{i}, G_{i}, Z_{i}, D_{i})_{i=1}^n \}\)
+drawn from an unknown distribution \(\mathbf{P}\). An algorithm
+\(a: \mathcal{X} \to \mathcal{D}\) maps covariate vectors to a decision
+in set \(\mathcal{D}\). We define the value of an algorithm as \[
+\hat{V}(a) = \frac{1}{n}\sum_{i=1}^n a(X_{i}) \hat{W}(\hat{\eta})
+\] \textbf{Definition} (Welfare Improvability). Fix some
+\(\delta \in \mathbb{R}_{+}\). We say an algorithm
+\(a_{1} \in \mathcal{A}\) consititutes a \(\delta\)-welfare improvement
+if and only if \[
+\frac{V(a_{1})}{V(a_{0})} \geq 1 + \delta
+\]
+
+In the testing procedure, the null hypothesis is given by \[
+H_{0}: \text{Algorithm $a_{0}$ is not $\delta$}\text{-improvable within class } \mathcal{A}
+\] with the alternative being that such an algorithm exists.
+
+The analysis must then define a selection rule or mapping from data
+samples to an algorithm in \(\mathcal{A}\): \[
+\rho: \mathcal{S} \to \mathcal{A},
+\] where
+\(\mathcal{S} = \bigcup_{m \geq 1}S_{m} = \bigcup_{m\geq 1}(\mathcal{X, Y}^m)\)
+is the set of all finite samples of observations.
+
+A sample-splitting procedure is then used to test for welfare
+improvability. First, choose the number of splits \(K\), and for each
+split in the data, choose the size of a hold-out set \(1-\beta\). We
+then perform the following three steps For \(k = 1, \dots, K\) 1. Split
+the sample into train and test sets. The training sample \(S_{train}\)
+has \(m=\lfloor \beta n \rfloor\) observations selected uniformly at
+radnom. \(S_{test}\) contains the remaining observations. 2. Find a
+candiate algorithm using \(S_{train}\). Using the selection rule,
+produce a candidate algorithm \(\hat{a}_{1k} = \rho(S_{train})\). 3.
+Test whether \(\hat{a}_{1k}\) constitutes a \(\delta\)-welfare
+improvement over \(a_{0}\).
+
+\section{Test}\label{test}
+
+Samples, with mean values \(\mu_{1}\) and \(\mu_{2}\). Under the null
+hypothesis \[
+H_{0}: \mu_{1} \leq \mu_{2}
+\] and \[
+H_{1}: \mu_{1}>\mu_{2}
+\] We take the pooled sample \(\mathbf{v} = (V(a_{1}), V(a_{2}))\). Our
+bootstrap sample is taken from the pooled sample
+\(\mathbf{v^*} = (V_{1}', V_{2}')\) by sampling from \(\mathbf{v}\) with
+replacement.
+
+We generate the p-value by generating independent bootstrap samples
+\(\mathbf{v^*}^{1}, \dots, \mathbf{v^*}^{B}\) with the p-value
+calculated as \[
+\hat{p} = \frac{1}{B} \sum_{b=1}^B I\{ T(\mathbf{v^*}^{b}) \leq T(\mathbf{v}) \}
+\]
+
+\subsection{Test Asymptotic}\label{test-asymptotic}
+
+With our ideal bootstrap, as \(n \to \infty\): \[
+\sqrt{ n }(T(\hat{P}) - T({P})) \to^d F
+\] Main asymptotic justification of the bootstrap, conditional on
+\(X_{i}\): \[
+\sqrt{ n }(T(P^*) - T(\hat{P})) \to^d F
+\]
+
+\subsubsection{Conditional CLT for the
+mean}\label{conditional-clt-for-the-mean}
+
+Let \(X_{i}\) be iid random vectors with mean \(\mu\) and covariance
+\(\Sigma\).
+
+\begin{quote}
+Delta method If \(\phi\) is continuously differentiable, then
+\(\sqrt{ n }(\hat{\theta}_{n} - \theta) \to^d T\) and
+\(\sqrt{ n }(\hat{\theta}_{n}^* - \hat{\theta}) \to^d T\) conditionally,
+then
+\(\sqrt{ n }(\phi(\hat{\theta}_{n}) - \phi(\theta)) \to^d \phi'(T)\) and
+\(\sqrt{ n }(\phi(\hat{\theta}_{n}^*) - \phi(\hat{\theta})) \to^d \phi'(T)\)
+conditionally.
+\end{quote}
+
+Though Edgeworth expansion (a refinement of the central limit theorem)
+that the bootstrap has a faster convergence rate than simple normal
+approximations.
+
+\subsubsection{Iterated Bootstrap}\label{iterated-bootstrap}
+
+If chosen correctly, the iterated bootstrap can have higher rate of
+convergence than the non-iterated bootstrap.
+
+Double Bootstrap Idea: Use an iterated version of the bootstrap to
+correct the p-value (the bootstrap does not guarantee that the p-value
+will be distributed uniformly under the null, although it should). Let
+\(p\) be the p-value based on \(\hat{P}\). Let \(p^*\) be the random
+variable obtained by resampling from \(\hat{P}\). We get the adjusted
+p-value from \[
+p_{adj} = P^*(p^* \leq p \mid \hat{P}).
+\] \textbf{Set-up} Generate \(X^*_{1}, \dots, X^*_{n}\) from the fitted
+null distribution \(\hat{P}\) (I think this is the pooled sample),
+calculating the test statistic \(t_{r}^*\). We then fit the null
+distribution to \(X^*_{1}, \dots, X^*_{n}\) obtaining \(\hat{P}_{r}\)
+for \(m = 1,\dots, M\): - Generate \(X^{* *}_{1}, \dots, X^{* *}_{n}\)
+from \(\hat{P}_{r}\) - Calculate the test statistic \(t^{* *}_{{rm}}\)
+from them Let
+\(p^*_{r} = \frac{1 + I\{ t^{* *}_{rm} \geq t_{r}^* \}}{1+M}\). Let
+\(p_{adj} = \frac{1 + I\{ p^{* }_{rm} \geq p_{r} \}}{1+M}\)
+
+\section{Testing Groups}\label{testing-groups}
+
+We assume we have an additional binary variable \(G_{i}\) indicating
+group member ship with
+\(\{ (X_{i}, W_{i}, Y_{i}, G_{i}, Z_{i}, D_{i}) \}_{i=1}^n \sim \mathbf{P}\).
+
+\textbf{Definition} (Group Welfare Improvability) Fix a class of
+algorithms \(\mathcal{A}\) and a tuple
+\((\delta_{g_{1}}, \delta_{g_{2}}) \in \mathbb{R}_{+}\). We say the
+algorithm \(a_{0}\) constitutes a
+\((\delta_{g_{1}}, \delta_{g_{2}})\)-improvable within class
+\(\mathcal{A}\) if there exists an algorithm \(a_{1} \in \mathcal{A}\)
+such that \[
+\frac{V_{g_{1}}(a_{1})}{V_{g_{1}}(a_{0})} \geq 1+\delta_{1} \text{   and   } \frac{V_{g_{2}}(a_{1})}{V_{}{g_{2}}(a_{0})} \geq 1+\delta_{2}
+\] We make adjustments for multiple testing.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Main Results}\label{main-results}
+
+\subsubsection{Assumption}\label{assumption}
+
+A1: Independently and Identically Distributed Data The observations
+\(\{ (X_{i}, Y_{i}, W_{i}, Z_{i}) \}_{i=1}^n\) are independent and
+identically distributed, random vectors or scalars
+
+A2: Bounded and Measurable Treatment Policies - The treatment policies
+\(a_{0}\) and \(a_{1}\) and reasurable functions satisfying
+\(0 \leq a_{j}(X) \leq 1\) for all \(X\) and \(j = 0, 1\). - The
+difference \(\delta {a}(X) = a_{1}(X) - a_{0}(X)\) is uniformly bounded
+implying there exists an \(M < \infty\) such that
+\(\mid \delta a(X) \mid \leq M\) for all \(X\).
+
+A3: Finite Second Moments - The conditional treatment effect
+\(t_{0}(X) = \mathbb{E}[Y(1) - Y(0) \mid X]\) satisfies
+\(\mathbb{E}[\tau_{0}^2] < \infty\) - The product \(\delta a(X)\tau(X)\)
+has finite variance:
+\(\mathbb{E}[\{ \delta a(X) \tau_{0}(X)\}^2] < \infty\)
+
+A4: Consistent Estimation of Treatment Effects The estimated treatment
+effects \[\hat{\Gamma}_{i} = \tau_{0}(X_{i}) + \epsilon _{i}\] where the
+estimation errors \(\epsilon _{i}\) satisfy -
+\(\mathbb{E}[\epsilon _{i} \mid X_{i}] = 0\) - \(\epsilon _{i}\) is
+independent of \(X_{i}\) due to cross-fitting -
+\(\mathbb{E}[\epsilon^2_{i}] \leq Cn^{2\kappa}\) for some
+\(\kappa > 0.25\) and constant \(C > 0\)
+
+A5: Cross-Fitting and Independence The estimation of
+\(\hat{\Gamma}_{i}\) is performed using cross-fitting, ensuring that
+\(\hat{\Gamma}_{i}\) is approximately independent of
+\((X_{i}, Y_{i}, W_{i}, Z_{i})\).
+
+A6: Regularity Conditions for the Bootstrap - The samples are generated
+by resampling the pairs \((X_{i}, \hat{\Gamma}_{i})\) with replacement -
+The bootstrap replicates \(T^*_{n}\) mimic the sampling variability of
+\(T_{n}\) under the null hypothesis
+
+A7: Lindeberg-Feller Conditions For the sequence \(\{ \psi _{i} \}\)
+defined by \(\psi _{i} = \delta a(X_{i})\hat{\Gamma}_{i})\), the
+Lindeberg condition holds: \[
+\forall \epsilon>0, \frac{1}{n}\sum_{i=1}^n \mathbb{E}[\psi _{i}^2 \mathbb{I}(\mid\psi _{i}\mid > \epsilon \sqrt{ n })] \to 0, \text{   as } n\to \infty
+\]
+
+A8: Non-degeneracy The variance \(\sigma^2 = Var(\psi _{i})>0\).
+
+As above, we define the test statistic \[
+T_{n} = \hat{V}(a_{1}) - \hat{V}(a_{0}) = \frac{1}{n}\sum_{i=1}^n \psi _{i}.
+\]
+
+\textbf{Theorem} (Asymptotic Distribution of the Test Statistic). Under
+assumptions A1-A4, A7, and A8, we have \[
+\sqrt{n}(T_n - \theta) \xrightarrow{d} N(0, \sigma^2),
+\] where \(\sigma^2 = Var(\psi _{i})\).
+
+\textbf{Proof} By A4 and the law of iterated expectations: \[
+\mathbb{E}[\delta a(X_{i})\epsilon _{i}] = \mathbb{E}[\delta a(X_{i})\mathbb{E}[\epsilon _{i}\mid X_{i}]] = 0.
+\] Since \(\epsilon _{i}\) and \(X_{i}\) are independent (due to
+cross-fitting), and \(\mathbb{E}[\epsilon _{i} \mid X_{i}] = 0\), we
+have \[
+Var(\psi _{i}) = Var(\delta a(X_{i})\tau_{0}(X_{i})) + Var(\delta a(X_{i}\epsilon _{i})).
+\] By A4, \(Var(\delta a(X_{i}\epsilon _{i}))\) is \(O(n^{-2\kappa})\).
+
+Finally, under assumptions A1, A2, A3, A7, and A8, the Lindeberg-Feller
+CLT applies to \(\{ \psi _{i} \}\), yielding \[
+\sqrt{ n }(T_{n} - \theta) \xrightarrow{d} N(0, \sigma^2).
+\]
+
+Furthermore, for the term involving \(\epsilon _{i}\): \[
+\frac{1}{n}\sum_{i=1}^n \delta a(X_{i})\epsilon _{i} = O_{p}\left( \frac{1}{n^{\kappa-0.5}} \right) = o_{p}\left( \frac{1}{\sqrt{ n }} \right)
+\] END PROOF
+
+\textbf{Theorem} (Consistency of Bootstrap) Under Assumptions A1-A8, the
+bootstrap p-value \(\hat{p}\) for testing the null hypothesis \[
+H_{0}: V(a_{1}) \leq V(a_{0})
+\] using test statistic \(T_{n}\) converges in probability to the true
+p-value \(p\) as \(n \to \infty\). That is \[
+\hat{p} \to p,
+\] where
+\(p = \mathbb{P}(\sqrt{ n }(T_{n} - \theta) \geq (T^{obs}_{n} - \theta))\)
+with \(\theta = V(a_{1}) - V(a_{0})\).
+
+Proof Define the bootstrap test statistic as \[
+T^*_{n} = \frac{1}{n} \sum_{i=1}^n \psi _{i}^*, \text{   where } \psi^*_{i} = \delta a(X_{i}^*)\hat{\Gamma}_{i}^*.
+\]
+
+Our first want to show that, conditional on the observed data: \[
+\sqrt{ n }(T^*_{n} - T_{n}) \xrightarrow{d} N(0, \hat{\sigma}^2),
+\] where
+\(\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (\psi _{i} - \bar{\psi})^2\)
+and \(\bar{\psi} = \frac{1}{n}\sum_{i=1}^n \psi _{i}\).
+
+Given the data, the bootstrap sample \(\{ \psi _{i}^* \}\) consists of
+i.i.d. draws from the empirical distribution of \(\{ \psi _{i} \}\).
+Conditional on the data, the bootstrap sample satisfies the Lindeberg
+condition (since the original sample does). Therefore, \[
+\sqrt{ n }(T^*_{n} - T_{n}) \mid \text{data} \xrightarrow{d} N(0, \hat{\sigma}^2).
+\]
+
+Furthermore, under A2 and A3,
+\(\hat{\sigma}^2 \xrightarrow{p} \sigma^2\).
+
+Combining the above, the bootstrap distribution of
+\(\sqrt{ n }(T^*_{n} - T_{n})\) converges in distribution (conditional
+on the data) to the same normal distribution as
+\(\sqrt{ n }(T_{n}-\theta)\).
+
+We now turn to showing convergence of the bootstrap p-value. We defined
+the p-value as \[
+\hat{p} = \mathbb{P}^*(\sqrt{ n }(T^*_{n} - T_{n}) \geq \sqrt{ n }(T_{n}-\theta) \mid \text{data}),
+\] where \(\mathbb{P^*}\) denotes the probability under the bootstrap
+distribution.
+
+\section{Technical Considerations}\label{technical-considerations}
+
+Super Learning / Ensemble learning - convex approach and best learner. -
+Use a mix of traditional methods with known convergence rates, as well
+as LM methods
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Simulations}\label{simulations}
+
+We consider the following DGPs \#\#\# Linear DGP with Simple Threshold
+Decision Rules
+
+We first consider a single variable distributed uniformly on 0 and 1,
+where our two algorithms are simple threshold decision rules \[
+X \sim \text{Uniform}[0, 1].
+\] The true utility utility is given by \(u_{i} = \beta X_{i}\). We
+assume our DDML estimates are unbiased and given by \[
+\hat{u}_{i} = u_{i} + e_{i}, \text{ where } e_{i} \sim \text{N}(0, \sigma^2).
+\]
+
+The decision rules are given by \[
+\begin{aligned}
+a_{1}(X_{i})= \begin{cases} 
+1  & \text{if } X_{i} > c_{1} \\
+0  & \text{ otherwise}
+\end{cases} \\
+a_{2}(X_{i})= \begin{cases} 
+1  & \text{if } X_{i} > c_{2} \\
+0  & \text{ otherwise}
+\end{cases}
+\end{aligned}
+\] We control the true difference in algorithm welfare
+(\(V(a_{1}) - V(a_{2})\)) by adjusting \(c_{1}\) and \(c_{2}\). We also
+control estimation variance \(\hat{u}_{i}\) by changing \(\sigma^2\).
+
+The expected utility is given by \[
+\begin{aligned}
+V(a_{1})- V(a_{2}) &= \int _{c_{1}}^1 \beta X_{i} \, dX_{i} - \int _{c_{2}}^1 \beta X_{i} \, dX_{i}  \\
+&= \frac{\beta}{2}(c_{2}^2 - c_{1}^2)
+\end{aligned}
+\]
+
+\subsection{Nonlinear DGP with Quadratic Decision
+Rules}\label{nonlinear-dgp-with-quadratic-decision-rules}
+
+We next use the following DGP \[
+\begin{aligned}
+X_{i} &\sim \text{Uniform}[0,1] \\
+u_{i} &= \gamma X_{i}^2,  \\
+\hat{u}_{i} &= u_{i} + e_{i}, \text{where } e_{i} \sim \text{N}(0, \sigma^2)
+\end{aligned}
+\]
+
+The decision algorithms are again threshold rules \[
+\begin{aligned}
+a_{1}(X_{i})= \begin{cases} 
+1  & \text{if } X^2_{i} > c_{1} \\
+0  & \text{ otherwise}
+\end{cases} \\
+a_{2}(X_{i})= \begin{cases} 
+1  & \text{if } X^2_{i} > c_{2} \\
+0  & \text{ otherwise}
+\end{cases}
+\end{aligned}
+\]
+
+The expected difference in utility between the two algorithms is \[
+\begin{aligned}
+V(a_{1})- V(a_{2}) &= \int _{c_{1}}^1 \gamma X_{i} \, dX^2_{i} - \int _{c_{2}}^1 \gamma X^2_{i} \, dX_{i}  \\
+&= \frac{\gamma}{3}(c_{2}^{3/2} - c_{1}^{3/2})
+\end{aligned}
+\]
+
+\subsection{Binary Outcome DGP with Logistic Decision
+Rules}\label{binary-outcome-dgp-with-logistic-decision-rules}
+
+• \textbf{Independent Variable:}~ \(X_i \sim \text{Normal}(0, 1)\)
+
+• \textbf{True Utility:}~
+\(u_i = \delta \cdot \mathbb{I}(Y_i = 1) , where  Y_i \sim \text{Bernoulli}(p_i)  and  p_i = \frac{1}{1 + e^{-\theta X_i}}\)
+
+• \textbf{Estimated Utility:}~ \(\hat{u}_i = u_i + \varepsilon_i\)
+
+The expected difference in utility between the two algorithms is \[
+\begin{aligned}
+V(a_{1})- V(a_{2}) &= \int_{c_{1}}^\infty \frac{\delta  e^{-\frac{{X_i}^2}{2}}}{\sqrt{2 \pi } \left(e^{-\theta X_{i}}+1\right)}\, dX_{i} - \int_{c_{2}}^\infty \frac{\delta  e^{-\frac{{X_i}^2}{2}}}{\sqrt{2 \pi } \left(e^{-\theta X_{i}}+1\right)}\, dX_{i} 
+\end{aligned}
+\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Empirical Application}\label{empirical-application}
+
+In our first empirical example, we utilise data from the randomised
+controlled trial (RCT) conducted by Finkelstein et al.~(2020) on the
+Camden Coalition of Healthcare Providers' ``hotspotting'' program. The
+program targeted ``superutilizers''---patients with exceptionally high
+healthcare usage---and aimed to reduce hospital readmission rates by
+employing a care-transition model involving multidisciplinary teams of
+nurses, social workers, and community health workers. The intervention
+group consisted of 800 hospitalised patients with medically and socially
+complex conditions, all of whom had experienced at least one additional
+hospitalisation in the preceding six months.
+
+The critical variables in the study include hospital readmission within
+180 days and the costs associated with readmission and other
+health-related expenditures. The data collected included patient
+demographics, hospitalisation history, and post-discharge interactions
+with care teams. You can see a complete list of variables used in the
+appendix below. Despite the widespread optimism surrounding hotspotting,
+the RCT results indicated no significant difference in average treatment
+effect of readmission rates between the intervention and control groups,
+challenging prior observational claims of the program's efficacy.
+
+We apply this data to evaluate the impact of algorithmic decision-making
+in healthcare settings. Specifically, we investigate heterogeneity in
+treatment effects and compare two automated algorithms in their ability
+to identify high-risk patients who could benefit most from targeted
+interventions.
+
+We find substantial variation in the treatment effects estimated through
+double machine learning. Further, sensitivity tests are performed in the
+appendix.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Conclusion}\label{conclusion}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Alternative - Split Sample}\label{alternative---split-sample}
+
+We consider the training set \(\{ X_{i}, Y_{i} \}_{i=1}^n\) and a test
+point \((X_{n+1}, Y_{n+1})\) sampled i.i.d. from some unknown
+distribution \(P\).
+
+
+
+
+\end{document}

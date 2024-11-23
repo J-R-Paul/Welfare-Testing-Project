@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-11-23">
+<meta name="keywords" content="Empirical Welfare Maximisation, Algorithmic Deicison Making, Algorithm Discrimination">
+
+<title>Testing Welfare Improvability</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="citation_title" content="Testing Welfare Improvability">
+<meta name="citation_abstract" content="Here is a placeholder for the abstract.
+">
+<meta name="citation_keywords" content="Empirical Welfare Maximisation,Algorithmic Deicison Making,Algorithm Discrimination">
+<meta name="citation_author" content="Joseph R. Paul">
+<meta name="citation_publication_date" content="2024-11-23">
+<meta name="citation_cover_date" content="2024-11-23">
+<meta name="citation_year" content="2024">
+<meta name="citation_online_date" content="2024-11-23">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Literate programming;,citation_author=Donald E. Knuth;,citation_publication_date=1984-05;,citation_cover_date=1984-05;,citation_year=1984;,citation_fulltext_html_url=https://doi.org/10.1093/comjnl/27.2.97;,citation_issue=2;,citation_doi=10.1093/comjnl/27.2.97;,citation_issn=0010-4620;,citation_volume=27;,citation_journal_title=Comput. J.;,citation_publisher=Oxford University Press, Inc.;">
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Testing Welfare Improvability</h1>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+            <div class="quarto-title-meta-author">
+          <div class="quarto-title-meta-heading">Author</div>
+          <div class="quarto-title-meta-heading">Affiliation</div>
+          
+                <div class="quarto-title-meta-contents">
+            <p class="author">Joseph R. Paul <a href="mailto:steve@curvenote.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        Heriot-Watt University
+                      </p>
+                  </div>
+                    </div>
+        
+        <div class="quarto-title-meta">
+
+                      
+                <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">November 23, 2024</p>
+            </div>
+          </div>
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      <div class="quarto-alternate-formats"><div class="quarto-title-meta-heading">Other Formats</div><div class="quarto-title-meta-contents"><p><a href="index.docx"><i class="bi bi-file-word"></i>MS Word</a></p></div><div class="quarto-title-meta-contents"><p><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></p></div><div class="quarto-title-meta-contents"><p><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF (arxiv)</a></p></div><div class="quarto-title-meta-contents"><p><a href="index-meca.zip" data-meca-link="true"><i class="bi bi-archive"></i>MECA Bundle</a></p></div></div></div>
+    </div>
+
+    <div>
+      <div class="abstract">
+        <div class="block-title">Abstract</div>
+        <p>Here is a placeholder for the abstract.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="keywords">
+        <div class="block-title">Keywords</div>
+        <p>Empirical Welfare Maximisation, Algorithmic Deicison Making, Algorithm Discrimination</p>
+      </div>
+    </div>
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#old-policy-evaluation" id="toc-old-policy-evaluation" class="nav-link" data-scroll-target="#old-policy-evaluation">(old) Policy Evaluation</a></li>
+  <li><a href="#related-literature" id="toc-related-literature" class="nav-link" data-scroll-target="#related-literature">Related Literature</a></li>
+  <li><a href="#treatment-effect-evaluation" id="toc-treatment-effect-evaluation" class="nav-link" data-scroll-target="#treatment-effect-evaluation">Treatment Effect Evaluation</a></li>
+  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
+  <li><a href="#average-treatment-effect-estimation" id="toc-average-treatment-effect-estimation" class="nav-link" data-scroll-target="#average-treatment-effect-estimation">Average Treatment Effect Estimation</a>
+  <ul class="collapse">
+  <li><a href="#neyman-orthogoal-scores-for-the-linear-regression-model" id="toc-neyman-orthogoal-scores-for-the-linear-regression-model" class="nav-link" data-scroll-target="#neyman-orthogoal-scores-for-the-linear-regression-model">Neyman Orthogoal scores for the linear regression model</a></li>
+  <li><a href="#interactive-regression-model" id="toc-interactive-regression-model" class="nav-link" data-scroll-target="#interactive-regression-model">Interactive Regression Model</a></li>
+  <li><a href="#assumption-learners" id="toc-assumption-learners" class="nav-link" data-scroll-target="#assumption-learners">Assumption Learners</a></li>
+  </ul></li>
+  <li><a href="#the-double-machine-learning-algorithm" id="toc-the-double-machine-learning-algorithm" class="nav-link" data-scroll-target="#the-double-machine-learning-algorithm">The Double machine learning algorithm</a></li>
+  <li><a href="#from-average-to-conditional-treatment-effects" id="toc-from-average-to-conditional-treatment-effects" class="nav-link" data-scroll-target="#from-average-to-conditional-treatment-effects">From Average to Conditional Treatment Effects</a></li>
+  <li><a href="#proposed-approach" id="toc-proposed-approach" class="nav-link" data-scroll-target="#proposed-approach">Proposed Approach</a></li>
+  <li><a href="#outline-of-testing-procedure" id="toc-outline-of-testing-procedure" class="nav-link" data-scroll-target="#outline-of-testing-procedure">Outline of testing procedure</a></li>
+  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test">Test</a>
+  <ul class="collapse">
+  <li><a href="#test-asymptotic" id="toc-test-asymptotic" class="nav-link" data-scroll-target="#test-asymptotic">Test Asymptotic</a></li>
+  </ul></li>
+  <li><a href="#testing-groups" id="toc-testing-groups" class="nav-link" data-scroll-target="#testing-groups">Testing Groups</a></li>
+  <li><a href="#main-results" id="toc-main-results" class="nav-link" data-scroll-target="#main-results">Main Results</a></li>
+  <li><a href="#technical-considerations" id="toc-technical-considerations" class="nav-link" data-scroll-target="#technical-considerations">Technical Considerations</a></li>
+  <li><a href="#simulations" id="toc-simulations" class="nav-link" data-scroll-target="#simulations">Simulations</a>
+  <ul class="collapse">
+  <li><a href="#nonlinear-dgp-with-quadratic-decision-rules" id="toc-nonlinear-dgp-with-quadratic-decision-rules" class="nav-link" data-scroll-target="#nonlinear-dgp-with-quadratic-decision-rules">Nonlinear DGP with Quadratic Decision Rules</a></li>
+  <li><a href="#binary-outcome-dgp-with-logistic-decision-rules" id="toc-binary-outcome-dgp-with-logistic-decision-rules" class="nav-link" data-scroll-target="#binary-outcome-dgp-with-logistic-decision-rules">Binary Outcome DGP with Logistic Decision Rules</a></li>
+  </ul></li>
+  <li><a href="#empirical-application" id="toc-empirical-application" class="nav-link" data-scroll-target="#empirical-application">Empirical Application</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#alternative---split-sample" id="toc-alternative---split-sample" class="nav-link" data-scroll-target="#alternative---split-sample">Alternative - Split Sample</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+  
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Potential Names - Comparing Algorithmic Impacts with Doubly-Robust Estimation - Statistical Inference for Comparing Treatment Assignment Algorithms - Making Informed Choices: A Framework for Evaluating the Impact of Competing Algorithms - Statistical Inference for Comparing Treatment Assignment Algorithms</p>
+</section>
+<section id="old-policy-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="old-policy-evaluation">(old) Policy Evaluation</h2>
+<p>The use of algorithmic decision-making systems is becoming increasingly pervasive across many areas of society. There is a growing critical need for robust methods to evaluate their performance and impacts on those they make decisions about. From healthcare and criminal justice to financial services and education, these systems are increasingly shaping outcomes that profoundly affect individual lives and social structures. While there is great potential for algorithms to enhance efficiency and fairness, their use raises significant concerns about their impacts on well-being. However, the potential of algorithms to enhance efficiency and fairness should instil optimism about their future impact.</p>
+<p>Algorithms have emerged as powerful and valuable tools for addressing complex economic decision problems, offering substantial benefits across various domains. Ludwig, Mullainathan, and Rambachan, in their study on “The Unreasonable Effectiveness of Algorithms,” argue that they can also provide a “free lunch in terms of public spending. For instance, in the criminal justice system, an algorithm applied to pretrial release decisions in New York City demonstrated the potential to reduce pretrial detentions by up to <span class="math inline">\(40\%\)</span> Without increasing failure rates (REF). In healthcare, an algorithmic approach to diagnosing heart attacks could potentially reduce unnecessary stress tests and catheterisations, leading to significant cost savings, potentially billions in Medicare costs annually.</p>
+<p>Given the promise, we need robust methods to help us decide <em>which</em> algorithm to use.</p>
+<p>The power of algorithms lies in their ability to extract signals from complex datasets, often outperforming human judgement in ranking and prediction tasks. This capability allows for more efficient allocation of resources and more accurate decision-making in various economic contexts. In education, Bergman et al.&nbsp;(2023) found that an algorithm for college course placement increased enrollments in college-level classes without compromising pass rates while also reducing disparities across racial and ethnic groups. In workplace safety regulation, Johnson et al.&nbsp;(2023) demonstrated that an algorithm could better predict which work sites will likely have future injuries, potentially preventing thousands of severe injuries and saving hundreds of millions of dollars in lost income.</p>
+<p>However, it is crucial to note that the effectiveness of algorithms has its challenges. These promising results should not lead to immediate large-scale implementation but encourage further research and development in algorithmic solutions to policy problems. The need for this research is urgent and of utmost importance. Key challenges remain, such as understanding how decision-makers will respond to algorithmic tools in practice (Albright REF), addressing potential data drift over time, ensuring algorithms generalise across different contexts, and accurately assessing the impact of policies. This paper aims to contribute to addressing that last problem.</p>
+<p>Recent years have witnessed substantial progress in developing frameworks for assessing the welfare implications of algorithmic decisions, mainly through the lens of treatment effects. This includes the empirical welfare maximisation literature, including the seminal work by and , which established rigorous foundations for policy learning and demonstrating the possibility of deriving optimal treatment assignment policies that maximise welfare under various constraints. The purpose of empirical welfare maximisation is to leverage treatment heterogeneity to maximise welfare using an algorithmic decision policy at an almost <span class="math inline">\(1/\sqrt{n}\)</span> convergence rate. Athey and Wager’s work, rooted in the theory of semiparametric efficiency estimation , has opened new avenues for understanding and improving algorithmic decision-making processes. However, the existing literature on policy learning often focuses on asymptotic optimality within simplified policy classes, prioritizing theoretical guarantees over their practical applicability. While these contributions are invaluable, there remains a pressing need for more pragmatic approaches that can navigate the complexities of real-world algorithmic systems. This research aims to bridge the gap by proposing a novel framework for assessing welfare impacts of algorithmic treatment decisions and to help practitioners implement and find decision policies. There is concern around the finite-sample performance of some of this methods, with limited guarantees of optimally in finite samples.</p>
+<p>Our approach introduces a testing procedure for welfare improvability that evaluates a status quo algorithm or policy against a class of proposed algorithmic policies. This method offers several key advantages over existing methods proposed in the empirical welfare maximization literature. First, it allows for greater flexibility in the policy class selection, with almost no constraints placed on the set of allowed policies a priori. This can accommodate large and complex state-of-the-art algorithms such as deep neural networks or large ensembles that may outperform simpler, analytically tractable policy sets in practice. Second, it yields interpretable results, in terms of treatment effects, that can be readily understood by policymakers, legal experts, and other non-technical stakeholders. Third, it has potential applications in legal and ethical contexts, providing a framework for demonstrating the absence of discriminatory practices or the impossibility of Pareto improvements in welfare for specific subgroups such as men and women.</p>
+<p>Given sufficiently fast convergence of estimation of the nucciance parameters in the estimation of average treatment effects, we show that the proposed bootstrap procedure is consistent in its estimation of average welfare. This approach allows for the welfare ranking of policies (). The decision theoretic idea of optimising some population decision function using a sample analogue is known as the Empirical Risk Minimising principal in classification and statistical learning (Vapnik, 1998).</p>
+<p>By adopting this methodology, we take a more nuanced view of algorithmic decision-making than traditional empirical welfare maximization approaches. Rather than focus solely on identifying the optimal policy within a restricted class, we provide a framework for evaluating and comparing complex algorithmic systems in terms of their welfare impacts. This shift in perspective opens up new possibilities for understanding and improving algorithmic decision-making in real-world contexts. As algorithmic systems become increasingly influential and critical in decision-making processes, the ability to rigorously assess their welfare impacts becomes paramount. This approach provides a practical tool for policymakers, legal professionals, researchers, and ethicists to evaluate the fairness and efficacy of algorithmic decisions. Moreover, it offers a means to detect and address potential biases or inefficiencies in existing systems, contributing to the development of more equitable and efficient algorithmic policies. UK Government’s Data Ethics Framework which asks practitioners to perform a self-assessment of their transparency, fairness, and accountability [18].</p>
+<p>Furthermore, it has been argued that using complex models are often preferable to simple models [Simplicity Creates Inequity: Implications for Fairness, Stereotypes, and Interpretability]. The authors show that for every simple prediction function, there exists a more complex function that is strictly more equitable and more efficient. (Can the statement be made that for every simple policy class, there exists a more favorable complex policy class. What does learnability have to say about comparisons across policy classes?).</p>
+<p>In the sections that follow, we first review the literature on policy evaluation, building on the seminal work on semi-parametric efficiency by . We then propose our testing procedure and show that we efficiently and unbiasedly estimate differences in welfare of different algorithmic decision-making policies and show the convergence of our bootstrap estimation procedure. Wed Monte Carlo studies results, showing how the method is used in practice, and finally, we apply this method to the real-world setting of [TO BE FILLED IN LATER].</p>
+<p>By offering a pragmatic yet rigorous approach to assessing the welfare impacts of algorithmic decisions, this research aims to contribute to the ongoing dialogue about the role and use of algorithms. The tools presented here will help develop a more transparent, accountable, and welfare-enhancing use of algorithmic decision policies.</p>
+<hr>
+<p>We assume that we have independent and identically distributed samples <span class="math inline">\(X_{i}, Y^*_{i}, Y_{i}, D_{i}, Z_{i}\)</span>, where <span class="math inline">\(Y^*_{i} \in \mathbb{R}\)</span> is an outcome we try to predict, <span class="math inline">\(D_{i} \in \mathcal{D}\)</span> is the observed treatment assignment, <span class="math inline">\(X_{i} \in \mathcal{X}\)</span> are a subject’s features, and <span class="math inline">\(Z_{i}\)</span> is an (optional) instrument, and <span class="math inline">\(Y_{i}\in\mathbb{R}\)</span> is interpreted as the utility resulting from the intervention. If <span class="math inline">\(D_{i}\)</span> is conditionally exogenous, then <span class="math inline">\(Z_{i}=D_{i}\)</span>. It might also be the case that our target variable is equal to the measured utility <span class="math inline">\(Y^*_{i} = Y_{i}\)</span>.</p>
+<p>A decision-making algorithm is <span class="math inline">\(a \in \mathcal{A}\)</span> is a mapping from a subject’s features to a decision <span class="math inline">\(a: \mathcal{X} \to \mathcal{D}\)</span>.</p>
+<p>We can define the causal effect of an intervention in terms of potential outcomes, where <span class="math inline">\(U_{i}(d)\)</span> correspond to the utility of subjects <span class="math inline">\(i\)</span> under treatment <span class="math inline">\(d \in \mathcal{D}\)</span>.</p>
+<p>When our treatment <span class="math inline">\(D_{i}\)</span> is binary, the utility under the algorithm <span class="math inline">\(a\)</span> is measured against no-treatment <span class="math display">\[
+V(a) = \mathbf{E}[Y_{i}(a(X_{i})) - Y_{i}(0)]
+\]</span></p>
+<p>In the policy learning literature, the policy is then usually evaluated as the regret of the algorithm relative to the best algorithm in class <span class="math inline">\(a \in \mathcal{A'}\)</span> given by: <span class="math display">\[
+R(a) = \max_{a'} \{  V(a') \in \mathcal{A'} \} - V(a).
+\]</span> <span class="math inline">\(\mathcal{A'}\)</span> is usually constrained to be a limited class of functions, such as linear decision rules or shallow decision trees. This is done to contain the VC dimension of the policy class to make asymptotic regret guarantees tractable. In this research, no such restrictions are placed on the class of allowed potential decision algorithms.</p>
+<p>As shown by Kitagawa and Tetenov (2018), if <span class="math inline">\(D_{i}\)</span> is exogenous with known treatment propensities and a suitable class of policies, inverse propensity weighting can be used to derive a policy <span class="math inline">\(\hat{a}\)</span> whose regret <span class="math inline">\(R(\hat{a})\)</span> decays with <span class="math inline">\(\frac{1}{\sqrt{ n }}\)</span>, with <span class="math display">\[
+\hat{a} = \arg\max \left\{  \frac{1}{n}\sum_{i=1}^n  \frac{1(\{ D_{i} = a(X_{i}) \})Y^*_{i}}{P[D_{i} = a(X_{i}) \mid X_{i}]} : a \in \mathcal{A'} \right\}.
+\]</span></p>
+<p>Athey and Wager (2020) extend this to cases where treatment propensities are unknown and may need to be identified from operational data.</p>
+<p>In the case of a continuous intervention, the utility of an infinitesimal intervention is given by <span class="math display">\[
+V(a) =  \left[ \frac{d}{d \nu} \mathbf{E}[Y^*_{i}(D_{i} + \nu a(X_{i}))] \right]_{\nu=0},
+\]</span> with regret defined similarly. An example of a continuous intervention would be price interventions.</p>
+<p>In the case of using observational data, as opposed to using data generated from an experiment, we need to make assumptions about the data-generating process that allow for identification and estimation of expected utility <span class="math inline">\(V(a)\)</span>.</p>
+<p>The empirical welfare maximisation literature relies on controlling the size of the policy class <span class="math inline">\(\mathcal{A}\)</span>, to make an estimation of a “best in class” policy realistic. This work takes a more pragmatic view of the problem in that we are more interested in testing if we are able to produce a decision-making algorithm that results in higher welfare without potentially achieving a “best in class” algorithm or with specific regret guarantees. This allows for the use of more “powerful” black-box machine learning algorithms to be used in these settings for which formal regret guarantees don’t exist or are hard to prove.</p>
+</section>
+<section id="related-literature" class="level2">
+<h2 class="anchored" data-anchor-id="related-literature">Related Literature</h2>
+<p>This paper can be related to two distinct fields of study. The first is policy learning, which has gained interest from econometricians, statisticians, and computer scientists. In this line of literature, statistical methods have been developed to find the optimal policy, often from a pre-defined class of allowed policies. We can further divide these methods into model-based methods and direct-search methods.</p>
+<p>Belonging to model-based approaches, from the computer science literature, we have Q-learning (Qian and Murphy, 2011) and A-learning (Shi et al., 2018), which both estimate a conditional expectations function (or contrast function) and then determine the optimal policy from these predictions. A short coming of this approach is that it relies heavily on correct functional form assumptions.</p>
+<p>Among direct search methods, outcome weighting (Zhao et al., 2012) attempts to learn the optimal policy non-parametrically using an inverse probability weighting estimator (IPWE). %%What economic jargon is used here?%% However, it is well known that there is the potential for instability caused by extreme propensity scores and model specification.</p>
+<p>To increase stability, some methods use the augmented IPWE (Zhang et al., 2012a,b; Zhao et al., 2019; Athey and Wager, 2021; Pan and Zhao, 2021), which has the double-robustness property. Athey and Wager’s (2021)’s seminal method comes with minimal optimal regret guarantees under suitable regularity conditions of the estimators. These methods come with strong theoretical guarantees but still suffer extreme weights. This problem is made more server when we only have small sample sizes.</p>
+<p>Similar to Athey and Wager (2021), we propose using generalised double machine learning to estimate the causal effects of a decision function, using cross-fitting and classical estimators or flexible ML for the estimation of nuisance function.</p>
+<blockquote class="blockquote">
+<p>Similar phenomena have been discussed in both policy learning and causal inference literature (e.g., Zhao et al., 2019; Wu et al., 2022). From (Matching-Based Policy Learning)</p>
+</blockquote>
+<p>The evaluation of treatment assignment rules has a long history in economics. Classic examples in economics include enrolment in government welfare programs (Dehejia, 2005), job training programs (Black et al., 2003; Frölich, 2008) and judge sentencing decisions (Bushway and Smith, 2007). This has often taken the for of the minimax regret, an approach pioneered by Manski (2004).</p>
+<p>A short coming with the literature on optimal statistical decision rules is that rules are undetermined in complex setting such as including capisity or fairness constraints.</p>
+<p>This research is also motivated by fair machine learning / automated decision-making.</p>
+<hr>
+</section>
+<section id="treatment-effect-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="treatment-effect-evaluation">Treatment Effect Evaluation</h2>
+</section>
+<section id="notation" class="level2">
+<h2 class="anchored" data-anchor-id="notation">Notation</h2>
+<p>Let <span class="math inline">\(W\)</span> represent a measure of welfare, <span class="math inline">\(Y\)</span> signify a given outcome, <span class="math inline">\(X\)</span> denote a set of covariates and <span class="math inline">\(Z\)</span> indicate a set of potential instruments, and a treatment variable <span class="math inline">\(D\)</span>. Formally, define <span class="math inline">\(Z\)</span> such that <span class="math inline">\(Z := (W, Y, X, Z, D)\)</span>.</p>
+</section>
+<section id="average-treatment-effect-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="average-treatment-effect-estimation">Average Treatment Effect Estimation</h2>
+<p>To define welfare for evaluating algorithm decisions, we introduce potential outcomes. In the binary treatment case, the realized outcome is given by <span class="math display">\[
+W = D W(1) + (1-D)W(0).
+\]</span> As is common analysis of statistical decision rules, we can evaluate the performance of an algorithm can be evaluated based on the distribution of outcomes induced by the algorithm.</p>
+<p>To start, we consider estimating the treatment effect in the partially linear regression model <span class="math display">\[
+W = \theta_{0}D + m(X) + e
+\]</span> &gt; I don’t think this is quite correct.</p>
+<p>Treatment assignment problems are related to the estimation of conditonaly average treatement effects. Assuming conditonal independence of treatment, we have <span class="math display">\[
+W_{i} \mid T_{i}=t, X_{i}=x \sim F_{t}(\cdot\mid x).
+\]</span></p>
+<p>Under utilitarian welfare (with <span class="math inline">\(Y\)</span> normalised to utilis),, the welfare of a treatment algorithm <span class="math inline">\(a\)</span> is given by the below definition.</p>
+<p>In this paper, we propose using <span class="citation" data-cites="chernozhukovLocallyRobustSemiparametric2022">(<a href="#ref-chernozhukovLocallyRobustSemiparametric2022" role="doc-biblioref"><strong>chernozhukovLocallyRobustSemiparametric2022?</strong></a>)</span>’s method, which is a general GMM framework for estimating treatment effect-like parameters based on debiased machine learning. In the basic algorithm, the inference is based upon a method of moments estimator for some low dimensional parameter, such as the ATE, based upon the empirical analogue of the moment condition <span class="math display">\[
+\mathbb{E}[\psi(Z; \theta_{0}, \eta)] =0
+\]</span> <span class="math inline">\(\psi\)</span> is the score, <span class="math inline">\(\theta_{0}\)</span> denotes the true value of the parameter of interest and <span class="math inline">\(\eta\)</span> being the nuisance paramters with true values <span class="math inline">\(\eta_{0}\)</span>. The expectation is taken over <span class="math inline">\(Z\)</span>.</p>
+<p>The score function has the important property that <span class="math display">\[
+M(\theta, \eta) = \mathbb{E}[\psi(Z, \theta, \eta)]
+\]</span> identifies <span class="math inline">\(\theta_{0}\)</span> when <span class="math inline">\(\eta=\eta_{0}\)</span> (<span class="math inline">\(M(\theta, \eta_{0}) =0 \iff \theta=\theta_{0}\)</span>), as well as having the Neyman orthogonality condition <span class="math display">\[
+\partial_{\eta}M(\theta_{0}, \eta) \bigg|_{\eta=\eta_{0}} =0,
+\]</span> where <span class="math inline">\(\partial_{\eta}\)</span> detnoes the pathwise or Gateaux derivative operator. This amounts to the scoring function being locally insensitive to perturbations around the true value of the nuisance parameters.</p>
+<p>Validity of the approach depends on defining an appropriate score function that satisfies the above condition, with some being proposed below.</p>
+<section id="neyman-orthogoal-scores-for-the-linear-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="neyman-orthogoal-scores-for-the-linear-regression-model">Neyman Orthogoal scores for the linear regression model</h3>
+<p>A suitable score for the paritally linear regression model is given by <span class="math display">\[
+\psi (Z; \theta, \eta) = \{ W - \ell(X) - \theta(D - m(X) \}(D - m(X))
+\]</span> where <span class="math inline">\(\eta = (\ell, m)\)</span>, with true value <span class="math inline">\(\eta_{0} = (\ell_{0}, m_{0})\)</span>. Here <span class="math inline">\(\ell\)</span> and <span class="math inline">\(m\)</span> are square-integrable functions mapping the support of <span class="math inline">\(X\)</span> to <span class="math inline">\(\mathbb{R}\)</span>, whose true values are the following conditional expecatation functions <span class="math display">\[
+\ell_{0}(X) = \mathbb{E}(W \mid X), ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ m_{0}(X) = \mathbb{E}[D \mid X].
+\]</span></p>
+</section>
+<section id="interactive-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-regression-model">Interactive Regression Model</h3>
+<p>For estimation of the average treatment effect in the interactive reegression model, we can use the following score function <span class="math display">\[
+\psi(Z; \theta, \eta) := (g(1, x) - g(0, x)) + H(D, X)(W-g(D, X)) - \theta,
+\]</span> where <span class="math display">\[
+H(D, X) := \frac{D}{m(X)} - \frac{1-D}{1-m(X)}.
+\]</span> This similar to the well-known doubly-robust estimator. It is known as doubly robust due to having the property that either the propentisy score or the outcome needs to be properly modelled.</p>
+<p>Here <span class="math inline">\(g\)</span> is a square-integratable function mapping the support of <span class="math inline">\((D, X)\)</span> to <span class="math inline">\(\mathbb{R}\)</span>, and <span class="math inline">\(m\)</span> maps the support of <span class="math inline">\(X\)</span> to <span class="math inline">\((\epsilon, 1-\epsilon)\)</span>, where <span class="math inline">\(\epsilon \in (0, 0.5)\)</span>. The true values are given by <span class="math display">\[
+g_{0}(X) = \mathbb{E}(W \mid D, X), ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ m_{0}(X) = \mathbb{E}[D \mid X].
+\]</span></p>
+</section>
+<section id="assumption-learners" class="level3">
+<h3 class="anchored" data-anchor-id="assumption-learners">Assumption Learners</h3>
+<p>To get consistent estimates, we need to assume sufficiently quality of the models that we use. For estimated nuciance components <span class="math inline">\(\eta\)</span>, sufficient condition being <span class="math display">\[
+\sqrt[4]{n } \mid\mid \hat{\eta} - \eta_{0} \mid\mid \approx 0.
+\]</span> Choice of the base estimators depends on the situation at hand. For example, believing the data to be sparce, we might choose to use LASSO with a dictionary of transformations on <span class="math inline">\(X\)</span>. How we choose learners is still an active area of research with not much said about choosing the theoretically best learner. That is why we advocate ensembles or what has been called “super-learning”.</p>
+<p>The performance of the ensemble is theoretically no worse that the best performing model in used our base learners. We can therefore combine powerful machine learning estimators, which may be have good finite sample performance, with various non-parametric estimators (which are known to satisfy the conditions asymptotically).</p>
+<p>Under the following an appropriate score function, assumptions (X) on the convergence of the learners and the use of sample-splitting, the approach works for estimating average treatment effects.</p>
+</section>
+</section>
+<section id="the-double-machine-learning-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="the-double-machine-learning-algorithm">The Double machine learning algorithm</h2>
+<p>Under the above assumpitons, assume we have a sample <span class="math inline">\(\{ Z_{i} \}_{i=1}^n\)</span> modelled as i.i.d coipies of random variable <span class="math inline">\(Z\)</span>, hows law is determined by the probability measure <span class="math inline">\(P\)</span>. The DML algorithm dives unbiased estimates of the paramter <span class="math inline">\(\theta\)</span>.</p>
+<p><strong>DML Algorithm</strong> Inputs: <span class="math inline">\(\{ Z_{i} \}_{i=1}^n\)</span>, the Neyman orthogonal score/moment function <span class="math inline">\(\psi (Z, \theta, \eta)\)</span> that identifies the paramter of interest, and estimation methods <span class="math inline">\(\mathcal{A}\)</span> for <span class="math inline">\(\eta\)</span>.</p>
+<p>Take a <span class="math inline">\(K-fold\)</span> random partition <span class="math inline">\((I_{k})_{k=1}^K\)</span> of observation indicies <span class="math inline">\(\{ 1, \dots, n \}\)</span> such that each fold is approximiatly the same size For <span class="math inline">\(k \in \{  1, \dots, K \}\)</span> do <span class="math inline">\(\hat{\eta}_{[k]} = \mathcal{A}((X_{i})_{i \not\in I_{k}})\)</span> end do Let <span class="math inline">\(k(i) = \{ k: i \in I_{k} \}\)</span> <span class="math inline">\(\hat{M}(\theta, \hat{\eta}) = \frac{1}{n}\sum_{i=1}^n \psi(Z_{i}, \theta, \hat{\eta}_{{k(i)}})\)</span> (The moment equation estimator) <span class="math inline">\(\hat{\theta} =\)</span> solution of <span class="math inline">\(\hat{M}(\hat{\theta}, \hat{\eta}) = 0\)</span></p>
+<p>The asymptotic variance is given by <span class="math display">\[\hat{V} = \frac{1}{n} \sum_{{i=1}}^n [\hat{\varrho}(Z_{i})\hat{\varrho}(Z_{i})'] - \frac{1}{n} \sum_{i=1}^n[\hat{\varrho}(Z_{i})] \frac{1}{n} \sum_{i=1}^n[\hat{\varrho}(Z_{i})]'\]</span> where <span class="math inline">\(\hat{\varrho}(Z_{i}) = - \hat{J}_{0}^{-1} \psi (Z_{i}, \hat{\theta}, \hat{\eta}_{[k(i)]})\)</span> and <span class="math inline">\(\hat{J}_{0} = \partial_{0} \frac{1}{n} \sum_{i=1}^n \psi(Z_{i}, \hat{\theta}, \hat{\eta}_{[k(i)]})\)</span>.</p>
+<p>Chernozhukov et al (book) recommend using 4-5 for a medium sized data-set. For smaller data-sets, we may choose to do more splits.</p>
+<p>Under strong identification assumption, we identify the <span class="math inline">\(\theta\)</span>. That is we have <span class="math inline">\(M(\theta, \eta_{0}) = 0 \iff \theta=\theta_{0}\)</span> and that <span class="math inline">\(J_{0}:= \partial _\theta \mathbb{E}[\psi(Z; \theta_{0}, \eta_{0})]\)</span> has singular values that are bounded away from zero. This method also has the beneficial quality of being Neyman orthogonal.</p>
+<p>In most settings, our nuisance parameters will be a regression function <span class="math display">\[
+\eta_{m} = \mathbb{E}[V_{m} \mid X_{m}], ~m \in \{ 1, \dots, M \}.
+\]</span> Chernozhukov (Book) recommend the following method for choosing the parameter. Select <span class="math inline">\(J\)</span> different poteintal ML or statistical estimators - For each <span class="math inline">\(j \in \{ 1, \dots, J \}\)</span>, compute cross-fitted MSPE <span class="math display">\[
+\mathbb{E}_{n} [\hat{V}_{mj}^2]
+\]</span> - Select model <span class="math inline">\(j\)</span> which has the lowest MPSE - Use method <span class="math inline">\(\hat{j}_{m}\)</span> as the learer of <span class="math inline">\(\eta_{m}\)</span> in the generic DML algorithm.</p>
+<p>While note giving us direct individual treatment effects, we can use this on our way to building estimates of the utility of an algorithm.</p>
+</section>
+<section id="from-average-to-conditional-treatment-effects" class="level2">
+<h2 class="anchored" data-anchor-id="from-average-to-conditional-treatment-effects">From Average to Conditional Treatment Effects</h2>
+<p>We express the CATE as the conditional expectation of an unbiased signal <span class="math display">\[
+\tau_{0}(X) = \mathbb{E}[Y(\eta_{0}) \mid X],
+\]</span> where the unbasied signal takes the from <span class="math display">\[
+Y(\eta) = H(\mu)(Y-g(D, Z)) + g(1, Z) - g(0, Z),
+\]</span> with nuisance parameters <span class="math inline">\(\eta  :=(\mu, \eta)\)</span> and <span class="math display">\[
+H(\mu) := \frac{D}{\mu(Z)} - \frac{1-D}{1-\mu(Z)},
+\]</span> and</p>
+<p><span class="math display">\[
+\mu_{0}(Z) := P(D=1 \mid Z), g_{0}(D, Z) := \mathbb{E}[Y \mid Z, D].
+\]</span> &gt; This is from chapter 14 CausalML Book. pg 378</p>
+<p>We can then form (I think) our individual score as <span class="math display">\[
+\begin{aligned}
+Y_{i}(\hat{\eta}) &amp;= Y_{i}(\hat{\eta}_{[k]}) \\
+&amp;= H_{i}(Y_{i} - \hat{g}_{[k]}(D_{i}, Z_{i})) + \hat{g}_{[k]}(1, Z_{i}) - \hat{g}_{[k]}(0, Z_{i})
+\end{aligned}
+\]</span> where <span class="math inline">\(H_{i}(\mu) := \frac{D}{\hat{\mu}_{[k]}(Z)} - \frac{1-D}{1-\hat{\mu}_{[k]}(Z)}\)</span>.</p>
+<blockquote class="blockquote">
+<p>Where does this leave me. I knew that it should already be unbiased. And if it wasn’t then It wouldn’t work anyway. What I think is a bit of a disapointnment is that the asympototics are already worked out. But there is lots to say about asympototics</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>It is unlikely that the finite sample properties are tractable. Could the bootstrap thus prove to be better in finite settings.</p>
+</blockquote>
+<p>You are referred to <strong>X</strong> for a detailed treatment.</p>
+<p>A probabilistic decision algorithm <span class="math inline">\(a(X) \in [0,1]\)</span> returns the probability of making a positive decision (e.g.&nbsp;to treat or not to treat). As part of assessing the quality of an algorithm, we want to create inference on the value of algorithm <span class="math inline">\(a\)</span>.</p>
+<p>Given an algorithm <span class="math inline">\(a\)</span>, I define the value of the algorithm as the average value if we follow <span class="math inline">\(a\)</span>’s decisions vs treating no one in our population: <span class="math display">\[
+\begin{aligned}
+V(a) :&amp;= \mathbb{E}[a(X) Y(1) + (1-a(X))Y(0)] - \mathbb{E}(Y(0)) \\
+&amp;= \mathbb{E}[a(X)(Y(1) - Y(0))] \\
+&amp;= \mathbb{E}[a(X)\tau_{0}(X)]
+\end{aligned}
+\]</span></p>
+<p>As we have shown, the CATE is identified by <span class="math inline">\(\mathbb{E}[Y(\eta_{0} \mid X)]\)</span> (Theorem 5.2.1). This implies our value of our algorithm is given by <span class="math display">\[
+V(a) := \mathbb{E}[a(X)\mathbb{E}[Y(\eta_{0} \mid X)]] = \mathbb{E}[a(X)Y(\eta_{0})].
+\]</span> I will next present an algorithm for estimating this, and then show that this provides an biased estimate of the value of the algorithm.</p>
+<p>Theorem (10.4)</p>
+<p>We next show how our proposed bootstrap procedure can be used to efficiently compare the effect of different algorithmic policies.</p>
+<hr>
+</section>
+<section id="proposed-approach" class="level2">
+<h2 class="anchored" data-anchor-id="proposed-approach">Proposed Approach</h2>
+</section>
+<section id="outline-of-testing-procedure" class="level2">
+<h2 class="anchored" data-anchor-id="outline-of-testing-procedure">Outline of testing procedure</h2>
+<p>We have access to an independent and identically distributed set of variables <span class="math inline">\(\{ (X_{i}, W_{i}, Y_{i}, G_{i}, Z_{i}, D_{i})_{i=1}^n \}\)</span> drawn from an unknown distribution <span class="math inline">\(\mathbf{P}\)</span>. An algorithm <span class="math inline">\(a: \mathcal{X} \to \mathcal{D}\)</span> maps covariate vectors to a decision in set <span class="math inline">\(\mathcal{D}\)</span>. We define the value of an algorithm as <span class="math display">\[
+\hat{V}(a) = \frac{1}{n}\sum_{i=1}^n a(X_{i}) \hat{W}(\hat{\eta})
+\]</span> <strong>Definition</strong> (Welfare Improvability). Fix some <span class="math inline">\(\delta \in \mathbb{R}_{+}\)</span>. We say an algorithm <span class="math inline">\(a_{1} \in \mathcal{A}\)</span> consititutes a <span class="math inline">\(\delta\)</span>-welfare improvement if and only if <span class="math display">\[
+\frac{V(a_{1})}{V(a_{0})} \geq 1 + \delta
+\]</span></p>
+<p>In the testing procedure, the null hypothesis is given by <span class="math display">\[
+H_{0}: \text{Algorithm $a_{0}$ is not $\delta$}\text{-improvable within class } \mathcal{A}
+\]</span> with the alternative being that such an algorithm exists.</p>
+<p>The analysis must then define a selection rule or mapping from data samples to an algorithm in <span class="math inline">\(\mathcal{A}\)</span>: <span class="math display">\[
+\rho: \mathcal{S} \to \mathcal{A},
+\]</span> where <span class="math inline">\(\mathcal{S} = \bigcup_{m \geq 1}S_{m} = \bigcup_{m\geq 1}(\mathcal{X, Y}^m)\)</span> is the set of all finite samples of observations.</p>
+<p>A sample-splitting procedure is then used to test for welfare improvability. First, choose the number of splits <span class="math inline">\(K\)</span>, and for each split in the data, choose the size of a hold-out set <span class="math inline">\(1-\beta\)</span>. We then perform the following three steps For <span class="math inline">\(k = 1, \dots, K\)</span> 1. Split the sample into train and test sets. The training sample <span class="math inline">\(S_{train}\)</span> has <span class="math inline">\(m=\lfloor \beta n \rfloor\)</span> observations selected uniformly at radnom. <span class="math inline">\(S_{test}\)</span> contains the remaining observations. 2. Find a candiate algorithm using <span class="math inline">\(S_{train}\)</span>. Using the selection rule, produce a candidate algorithm <span class="math inline">\(\hat{a}_{1k} = \rho(S_{train})\)</span>. 3. Test whether <span class="math inline">\(\hat{a}_{1k}\)</span> constitutes a <span class="math inline">\(\delta\)</span>-welfare improvement over <span class="math inline">\(a_{0}\)</span>.</p>
+</section>
+<section id="test" class="level2">
+<h2 class="anchored" data-anchor-id="test">Test</h2>
+<p>Samples, with mean values <span class="math inline">\(\mu_{1}\)</span> and <span class="math inline">\(\mu_{2}\)</span>. Under the null hypothesis <span class="math display">\[
+H_{0}: \mu_{1} \leq \mu_{2}
+\]</span> and <span class="math display">\[
+H_{1}: \mu_{1}&gt;\mu_{2}
+\]</span> We take the pooled sample <span class="math inline">\(\mathbf{v} = (V(a_{1}), V(a_{2}))\)</span>. Our bootstrap sample is taken from the pooled sample <span class="math inline">\(\mathbf{v^*} = (V_{1}', V_{2}')\)</span> by sampling from <span class="math inline">\(\mathbf{v}\)</span> with replacement.</p>
+<p>We generate the p-value by generating independent bootstrap samples <span class="math inline">\(\mathbf{v^*}^{1}, \dots, \mathbf{v^*}^{B}\)</span> with the p-value calculated as <span class="math display">\[
+\hat{p} = \frac{1}{B} \sum_{b=1}^B I\{ T(\mathbf{v^*}^{b}) \leq T(\mathbf{v}) \}
+\]</span></p>
+<section id="test-asymptotic" class="level3">
+<h3 class="anchored" data-anchor-id="test-asymptotic">Test Asymptotic</h3>
+<p>With our ideal bootstrap, as <span class="math inline">\(n \to \infty\)</span>: <span class="math display">\[
+\sqrt{ n }(T(\hat{P}) - T({P})) \to^d F
+\]</span> Main asymptotic justification of the bootstrap, conditional on <span class="math inline">\(X_{i}\)</span>: <span class="math display">\[
+\sqrt{ n }(T(P^*) - T(\hat{P})) \to^d F
+\]</span></p>
+<section id="conditional-clt-for-the-mean" class="level4">
+<h4 class="anchored" data-anchor-id="conditional-clt-for-the-mean">Conditional CLT for the mean</h4>
+<p>Let <span class="math inline">\(X_{i}\)</span> be iid random vectors with mean <span class="math inline">\(\mu\)</span> and covariance <span class="math inline">\(\Sigma\)</span>.</p>
+<blockquote class="blockquote">
+<p>Delta method If <span class="math inline">\(\phi\)</span> is continuously differentiable, then <span class="math inline">\(\sqrt{ n }(\hat{\theta}_{n} - \theta) \to^d T\)</span> and <span class="math inline">\(\sqrt{ n }(\hat{\theta}_{n}^* - \hat{\theta}) \to^d T\)</span> conditionally, then <span class="math inline">\(\sqrt{ n }(\phi(\hat{\theta}_{n}) - \phi(\theta)) \to^d \phi'(T)\)</span> and <span class="math inline">\(\sqrt{ n }(\phi(\hat{\theta}_{n}^*) - \phi(\hat{\theta})) \to^d \phi'(T)\)</span> conditionally.</p>
+</blockquote>
+<p>Though Edgeworth expansion (a refinement of the central limit theorem) that the bootstrap has a faster convergence rate than simple normal approximations.</p>
+</section>
+<section id="iterated-bootstrap" class="level4">
+<h4 class="anchored" data-anchor-id="iterated-bootstrap">Iterated Bootstrap</h4>
+<p>If chosen correctly, the iterated bootstrap can have higher rate of convergence than the non-iterated bootstrap.</p>
+<p>Double Bootstrap Idea: Use an iterated version of the bootstrap to correct the p-value (the bootstrap does not guarantee that the p-value will be distributed uniformly under the null, although it should). Let <span class="math inline">\(p\)</span> be the p-value based on <span class="math inline">\(\hat{P}\)</span>. Let <span class="math inline">\(p^*\)</span> be the random variable obtained by resampling from <span class="math inline">\(\hat{P}\)</span>. We get the adjusted p-value from <span class="math display">\[
+p_{adj} = P^*(p^* \leq p \mid \hat{P}).
+\]</span> <strong>Set-up</strong> Generate <span class="math inline">\(X^*_{1}, \dots, X^*_{n}\)</span> from the fitted null distribution <span class="math inline">\(\hat{P}\)</span> (I think this is the pooled sample), calculating the test statistic <span class="math inline">\(t_{r}^*\)</span>. We then fit the null distribution to <span class="math inline">\(X^*_{1}, \dots, X^*_{n}\)</span> obtaining <span class="math inline">\(\hat{P}_{r}\)</span> for <span class="math inline">\(m = 1,\dots, M\)</span>: - Generate <span class="math inline">\(X^{* *}_{1}, \dots, X^{* *}_{n}\)</span> from <span class="math inline">\(\hat{P}_{r}\)</span> - Calculate the test statistic <span class="math inline">\(t^{* *}_{{rm}}\)</span> from them Let <span class="math inline">\(p^*_{r} = \frac{1 + I\{ t^{* *}_{rm} \geq t_{r}^* \}}{1+M}\)</span>. Let <span class="math inline">\(p_{adj} = \frac{1 + I\{ p^{* }_{rm} \geq p_{r} \}}{1+M}\)</span></p>
+</section>
+</section>
+</section>
+<section id="testing-groups" class="level2">
+<h2 class="anchored" data-anchor-id="testing-groups">Testing Groups</h2>
+<p>We assume we have an additional binary variable <span class="math inline">\(G_{i}\)</span> indicating group member ship with <span class="math inline">\(\{ (X_{i}, W_{i}, Y_{i}, G_{i}, Z_{i}, D_{i}) \}_{i=1}^n \sim \mathbf{P}\)</span>.</p>
+<p><strong>Definition</strong> (Group Welfare Improvability) Fix a class of algorithms <span class="math inline">\(\mathcal{A}\)</span> and a tuple <span class="math inline">\((\delta_{g_{1}}, \delta_{g_{2}}) \in \mathbb{R}_{+}\)</span>. We say the algorithm <span class="math inline">\(a_{0}\)</span> constitutes a <span class="math inline">\((\delta_{g_{1}}, \delta_{g_{2}})\)</span>-improvable within class <span class="math inline">\(\mathcal{A}\)</span> if there exists an algorithm <span class="math inline">\(a_{1} \in \mathcal{A}\)</span> such that <span class="math display">\[
+\frac{V_{g_{1}}(a_{1})}{V_{g_{1}}(a_{0})} \geq 1+\delta_{1} \text{   and   } \frac{V_{g_{2}}(a_{1})}{V_{}{g_{2}}(a_{0})} \geq 1+\delta_{2}
+\]</span> We make adjustments for multiple testing.</p>
+<hr>
+</section>
+<section id="main-results" class="level2">
+<h2 class="anchored" data-anchor-id="main-results">Main Results</h2>
+<section id="assumption" class="level4">
+<h4 class="anchored" data-anchor-id="assumption">Assumption</h4>
+<p>A1: Independently and Identically Distributed Data The observations <span class="math inline">\(\{ (X_{i}, Y_{i}, W_{i}, Z_{i}) \}_{i=1}^n\)</span> are independent and identically distributed, random vectors or scalars</p>
+<p>A2: Bounded and Measurable Treatment Policies - The treatment policies <span class="math inline">\(a_{0}\)</span> and <span class="math inline">\(a_{1}\)</span> and reasurable functions satisfying <span class="math inline">\(0 \leq a_{j}(X) \leq 1\)</span> for all <span class="math inline">\(X\)</span> and <span class="math inline">\(j = 0, 1\)</span>. - The difference <span class="math inline">\(\delta {a}(X) = a_{1}(X) - a_{0}(X)\)</span> is uniformly bounded implying there exists an <span class="math inline">\(M &lt; \infty\)</span> such that <span class="math inline">\(\mid \delta a(X) \mid \leq M\)</span> for all <span class="math inline">\(X\)</span>.</p>
+<p>A3: Finite Second Moments - The conditional treatment effect <span class="math inline">\(t_{0}(X) = \mathbb{E}[Y(1) - Y(0) \mid X]\)</span> satisfies <span class="math inline">\(\mathbb{E}[\tau_{0}^2] &lt; \infty\)</span> - The product <span class="math inline">\(\delta a(X)\tau(X)\)</span> has finite variance: <span class="math inline">\(\mathbb{E}[\{ \delta a(X) \tau_{0}(X)\}^2] &lt; \infty\)</span></p>
+<p>A4: Consistent Estimation of Treatment Effects The estimated treatment effects <span class="math display">\[\hat{\Gamma}_{i} = \tau_{0}(X_{i}) + \epsilon _{i}\]</span> where the estimation errors <span class="math inline">\(\epsilon _{i}\)</span> satisfy - <span class="math inline">\(\mathbb{E}[\epsilon _{i} \mid X_{i}] = 0\)</span> - <span class="math inline">\(\epsilon _{i}\)</span> is independent of <span class="math inline">\(X_{i}\)</span> due to cross-fitting - <span class="math inline">\(\mathbb{E}[\epsilon^2_{i}] \leq Cn^{2\kappa}\)</span> for some <span class="math inline">\(\kappa &gt; 0.25\)</span> and constant <span class="math inline">\(C &gt; 0\)</span></p>
+<p>A5: Cross-Fitting and Independence The estimation of <span class="math inline">\(\hat{\Gamma}_{i}\)</span> is performed using cross-fitting, ensuring that <span class="math inline">\(\hat{\Gamma}_{i}\)</span> is approximately independent of <span class="math inline">\((X_{i}, Y_{i}, W_{i}, Z_{i})\)</span>.</p>
+<p>A6: Regularity Conditions for the Bootstrap - The samples are generated by resampling the pairs <span class="math inline">\((X_{i}, \hat{\Gamma}_{i})\)</span> with replacement - The bootstrap replicates <span class="math inline">\(T^*_{n}\)</span> mimic the sampling variability of <span class="math inline">\(T_{n}\)</span> under the null hypothesis</p>
+<p>A7: Lindeberg-Feller Conditions For the sequence <span class="math inline">\(\{ \psi _{i} \}\)</span> defined by <span class="math inline">\(\psi _{i} = \delta a(X_{i})\hat{\Gamma}_{i})\)</span>, the Lindeberg condition holds: <span class="math display">\[
+\forall \epsilon&gt;0, \frac{1}{n}\sum_{i=1}^n \mathbb{E}[\psi _{i}^2 \mathbb{I}(\mid\psi _{i}\mid &gt; \epsilon \sqrt{ n })] \to 0, \text{   as } n\to \infty
+\]</span></p>
+<p>A8: Non-degeneracy The variance <span class="math inline">\(\sigma^2 = Var(\psi _{i})&gt;0\)</span>.</p>
+<p>As above, we define the test statistic <span class="math display">\[
+T_{n} = \hat{V}(a_{1}) - \hat{V}(a_{0}) = \frac{1}{n}\sum_{i=1}^n \psi _{i}.
+\]</span></p>
+<p><strong>Theorem</strong> (Asymptotic Distribution of the Test Statistic). Under assumptions A1-A4, A7, and A8, we have <span class="math display">\[
+\sqrt{n}(T_n - \theta) \xrightarrow{d} N(0, \sigma^2),
+\]</span> where <span class="math inline">\(\sigma^2 = Var(\psi _{i})\)</span>.</p>
+<p><strong>Proof</strong> By A4 and the law of iterated expectations: <span class="math display">\[
+\mathbb{E}[\delta a(X_{i})\epsilon _{i}] = \mathbb{E}[\delta a(X_{i})\mathbb{E}[\epsilon _{i}\mid X_{i}]] = 0.
+\]</span> Since <span class="math inline">\(\epsilon _{i}\)</span> and <span class="math inline">\(X_{i}\)</span> are independent (due to cross-fitting), and <span class="math inline">\(\mathbb{E}[\epsilon _{i} \mid X_{i}] = 0\)</span>, we have <span class="math display">\[
+Var(\psi _{i}) = Var(\delta a(X_{i})\tau_{0}(X_{i})) + Var(\delta a(X_{i}\epsilon _{i})).
+\]</span> By A4, <span class="math inline">\(Var(\delta a(X_{i}\epsilon _{i}))\)</span> is <span class="math inline">\(O(n^{-2\kappa})\)</span>.</p>
+<p>Finally, under assumptions A1, A2, A3, A7, and A8, the Lindeberg-Feller CLT applies to <span class="math inline">\(\{ \psi _{i} \}\)</span>, yielding <span class="math display">\[
+\sqrt{ n }(T_{n} - \theta) \xrightarrow{d} N(0, \sigma^2).
+\]</span></p>
+<p>Furthermore, for the term involving <span class="math inline">\(\epsilon _{i}\)</span>: <span class="math display">\[
+\frac{1}{n}\sum_{i=1}^n \delta a(X_{i})\epsilon _{i} = O_{p}\left( \frac{1}{n^{\kappa-0.5}} \right) = o_{p}\left( \frac{1}{\sqrt{ n }} \right)
+\]</span> END PROOF</p>
+<p><strong>Theorem</strong> (Consistency of Bootstrap) Under Assumptions A1-A8, the bootstrap p-value <span class="math inline">\(\hat{p}\)</span> for testing the null hypothesis <span class="math display">\[
+H_{0}: V(a_{1}) \leq V(a_{0})
+\]</span> using test statistic <span class="math inline">\(T_{n}\)</span> converges in probability to the true p-value <span class="math inline">\(p\)</span> as <span class="math inline">\(n \to \infty\)</span>. That is <span class="math display">\[
+\hat{p} \to p,
+\]</span> where <span class="math inline">\(p = \mathbb{P}(\sqrt{ n }(T_{n} - \theta) \geq (T^{obs}_{n} - \theta))\)</span> with <span class="math inline">\(\theta = V(a_{1}) - V(a_{0})\)</span>.</p>
+<p>Proof Define the bootstrap test statistic as <span class="math display">\[
+T^*_{n} = \frac{1}{n} \sum_{i=1}^n \psi _{i}^*, \text{   where } \psi^*_{i} = \delta a(X_{i}^*)\hat{\Gamma}_{i}^*.
+\]</span></p>
+<p>Our first want to show that, conditional on the observed data: <span class="math display">\[
+\sqrt{ n }(T^*_{n} - T_{n}) \xrightarrow{d} N(0, \hat{\sigma}^2),
+\]</span> where <span class="math inline">\(\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (\psi _{i} - \bar{\psi})^2\)</span> and <span class="math inline">\(\bar{\psi} = \frac{1}{n}\sum_{i=1}^n \psi _{i}\)</span>.</p>
+<p>Given the data, the bootstrap sample <span class="math inline">\(\{ \psi _{i}^* \}\)</span> consists of i.i.d. draws from the empirical distribution of <span class="math inline">\(\{ \psi _{i} \}\)</span>. Conditional on the data, the bootstrap sample satisfies the Lindeberg condition (since the original sample does). Therefore, <span class="math display">\[
+\sqrt{ n }(T^*_{n} - T_{n}) \mid \text{data} \xrightarrow{d} N(0, \hat{\sigma}^2).
+\]</span></p>
+<p>Furthermore, under A2 and A3, <span class="math inline">\(\hat{\sigma}^2 \xrightarrow{p} \sigma^2\)</span>.</p>
+<p>Combining the above, the bootstrap distribution of <span class="math inline">\(\sqrt{ n }(T^*_{n} - T_{n})\)</span> converges in distribution (conditional on the data) to the same normal distribution as <span class="math inline">\(\sqrt{ n }(T_{n}-\theta)\)</span>.</p>
+<p>We now turn to showing convergence of the bootstrap p-value. We defined the p-value as <span class="math display">\[
+\hat{p} = \mathbb{P}^*(\sqrt{ n }(T^*_{n} - T_{n}) \geq \sqrt{ n }(T_{n}-\theta) \mid \text{data}),
+\]</span> where <span class="math inline">\(\mathbb{P^*}\)</span> denotes the probability under the bootstrap distribution.</p>
+</section>
+</section>
+<section id="technical-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="technical-considerations">Technical Considerations</h2>
+<p>Super Learning / Ensemble learning - convex approach and best learner. - Use a mix of traditional methods with known convergence rates, as well as LM methods</p>
+<hr>
+</section>
+<section id="simulations" class="level2">
+<h2 class="anchored" data-anchor-id="simulations">Simulations</h2>
+<p>We consider the following DGPs ### Linear DGP with Simple Threshold Decision Rules</p>
+<p>We first consider a single variable distributed uniformly on 0 and 1, where our two algorithms are simple threshold decision rules <span class="math display">\[
+X \sim \text{Uniform}[0, 1].
+\]</span> The true utility utility is given by <span class="math inline">\(u_{i} = \beta X_{i}\)</span>. We assume our DDML estimates are unbiased and given by <span class="math display">\[
+\hat{u}_{i} = u_{i} + e_{i}, \text{ where } e_{i} \sim \text{N}(0, \sigma^2).
+\]</span></p>
+<p>The decision rules are given by <span class="math display">\[
+\begin{aligned}
+a_{1}(X_{i})= \begin{cases}
+1  &amp; \text{if } X_{i} &gt; c_{1} \\
+0  &amp; \text{ otherwise}
+\end{cases} \\
+a_{2}(X_{i})= \begin{cases}
+1  &amp; \text{if } X_{i} &gt; c_{2} \\
+0  &amp; \text{ otherwise}
+\end{cases}
+\end{aligned}
+\]</span> We control the true difference in algorithm welfare (<span class="math inline">\(V(a_{1}) - V(a_{2})\)</span>) by adjusting <span class="math inline">\(c_{1}\)</span> and <span class="math inline">\(c_{2}\)</span>. We also control estimation variance <span class="math inline">\(\hat{u}_{i}\)</span> by changing <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>The expected utility is given by <span class="math display">\[
+\begin{aligned}
+V(a_{1})- V(a_{2}) &amp;= \int _{c_{1}}^1 \beta X_{i} \, dX_{i} - \int _{c_{2}}^1 \beta X_{i} \, dX_{i}  \\
+&amp;= \frac{\beta}{2}(c_{2}^2 - c_{1}^2)
+\end{aligned}
+\]</span></p>
+<section id="nonlinear-dgp-with-quadratic-decision-rules" class="level3">
+<h3 class="anchored" data-anchor-id="nonlinear-dgp-with-quadratic-decision-rules">Nonlinear DGP with Quadratic Decision Rules</h3>
+<p>We next use the following DGP <span class="math display">\[
+\begin{aligned}
+X_{i} &amp;\sim \text{Uniform}[0,1] \\
+u_{i} &amp;= \gamma X_{i}^2,  \\
+\hat{u}_{i} &amp;= u_{i} + e_{i}, \text{where } e_{i} \sim \text{N}(0, \sigma^2)
+\end{aligned}
+\]</span></p>
+<p>The decision algorithms are again threshold rules <span class="math display">\[
+\begin{aligned}
+a_{1}(X_{i})= \begin{cases}
+1  &amp; \text{if } X^2_{i} &gt; c_{1} \\
+0  &amp; \text{ otherwise}
+\end{cases} \\
+a_{2}(X_{i})= \begin{cases}
+1  &amp; \text{if } X^2_{i} &gt; c_{2} \\
+0  &amp; \text{ otherwise}
+\end{cases}
+\end{aligned}
+\]</span></p>
+<p>The expected difference in utility between the two algorithms is <span class="math display">\[
+\begin{aligned}
+V(a_{1})- V(a_{2}) &amp;= \int _{c_{1}}^1 \gamma X_{i} \, dX^2_{i} - \int _{c_{2}}^1 \gamma X^2_{i} \, dX_{i}  \\
+&amp;= \frac{\gamma}{3}(c_{2}^{3/2} - c_{1}^{3/2})
+\end{aligned}
+\]</span></p>
+</section>
+<section id="binary-outcome-dgp-with-logistic-decision-rules" class="level3">
+<h3 class="anchored" data-anchor-id="binary-outcome-dgp-with-logistic-decision-rules">Binary Outcome DGP with Logistic Decision Rules</h3>
+<p>• <strong>Independent Variable:</strong>&nbsp; <span class="math inline">\(X_i \sim \text{Normal}(0, 1)\)</span></p>
+<p>• <strong>True Utility:</strong>&nbsp; <span class="math inline">\(u_i = \delta \cdot \mathbb{I}(Y_i = 1) , where&nbsp; Y_i \sim \text{Bernoulli}(p_i)&nbsp; and&nbsp; p_i = \frac{1}{1 + e^{-\theta X_i}}\)</span></p>
+<p>• <strong>Estimated Utility:</strong>&nbsp; <span class="math inline">\(\hat{u}_i = u_i + \varepsilon_i\)</span></p>
+<p>The expected difference in utility between the two algorithms is <span class="math display">\[
+\begin{aligned}
+V(a_{1})- V(a_{2}) &amp;= \int_{c_{1}}^\infty \frac{\delta  e^{-\frac{{X_i}^2}{2}}}{\sqrt{2 \pi } \left(e^{-\theta X_{i}}+1\right)}\, dX_{i} - \int_{c_{2}}^\infty \frac{\delta  e^{-\frac{{X_i}^2}{2}}}{\sqrt{2 \pi } \left(e^{-\theta X_{i}}+1\right)}\, dX_{i}
+\end{aligned}
+\]</span></p>
+<hr>
+</section>
+</section>
+<section id="empirical-application" class="level2">
+<h2 class="anchored" data-anchor-id="empirical-application">Empirical Application</h2>
+<p>In our first empirical example, we utilise data from the randomised controlled trial (RCT) conducted by Finkelstein et al.&nbsp;(2020) on the Camden Coalition of Healthcare Providers’ “hotspotting” program. The program targeted “superutilizers”—patients with exceptionally high healthcare usage—and aimed to reduce hospital readmission rates by employing a care-transition model involving multidisciplinary teams of nurses, social workers, and community health workers. The intervention group consisted of 800 hospitalised patients with medically and socially complex conditions, all of whom had experienced at least one additional hospitalisation in the preceding six months.</p>
+<p>The critical variables in the study include hospital readmission within 180 days and the costs associated with readmission and other health-related expenditures. The data collected included patient demographics, hospitalisation history, and post-discharge interactions with care teams. You can see a complete list of variables used in the appendix below. Despite the widespread optimism surrounding hotspotting, the RCT results indicated no significant difference in average treatment effect of readmission rates between the intervention and control groups, challenging prior observational claims of the program’s efficacy.</p>
+<p>We apply this data to evaluate the impact of algorithmic decision-making in healthcare settings. Specifically, we investigate heterogeneity in treatment effects and compare two automated algorithms in their ability to identify high-risk patients who could benefit most from targeted interventions.</p>
+<p>We find substantial variation in the treatment effects estimated through double machine learning. Further, sensitivity tests are performed in the appendix.</p>
+<hr>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<hr>
+</section>
+<section id="alternative---split-sample" class="level2">
+<h2 class="anchored" data-anchor-id="alternative---split-sample">Alternative - Split Sample</h2>
+<p>We consider the training set <span class="math inline">\(\{ X_{i}, Y_{i} \}_{i=1}^n\)</span> and a test point <span class="math inline">\((X_{n+1}, Y_{n+1})\)</span> sampled i.i.d. from some unknown distribution <span class="math inline">\(P\)</span>.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
